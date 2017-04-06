@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">SmartBudget</string>
+    <string name="title_activity_login"></string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Correo</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="action_sign_in">Registrarse</string>
+    <string name="action_sign_in_short">Registrarse</string>
+    <string name="error_invalid_email">Este correo es invalido</string>
+    <string name="error_invalid_password">Esta contraseña es invalida</string>
+    <string name="error_incorrect_password">Esta contraseña es demasiado corta</string>
+    <string name="error_field_required">Este campo es requerido</string>
+    <string name="permission_rationale">"Es necesario tener permiso para leer los contactos"
+    </string>
+    <string name="title_activity_dash_board">Inicio</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Ajustes</string>
+    <string name="title_activity_sign_up">Registrarse</string>
 </resources>
