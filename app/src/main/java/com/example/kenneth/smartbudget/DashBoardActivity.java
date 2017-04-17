@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -27,6 +29,8 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import static com.example.kenneth.smartbudget.R.id.mas;
 
 public class DashBoardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
@@ -136,17 +140,22 @@ public class DashBoardActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        Fragment fragment = null;
         int id = item.getItemId();
 
         if (id == R.id.ingresos) {
-            // Handle the camera action
+            fragment = new IngresosFragment();
         } else if (id == R.id.ahorros) {
+            fragment = new AhorrosFragment();
 
         } else if (id == R.id.gastos) {
+            fragment = new GastosFragment();
 
-        } else if (id == R.id.mas) {
+        } else if (id == mas) {
+            fragment = new MasFragment();
 
         } else if (id == R.id.configuracion) {
+            fragment = new ConfiguracionFragment();
 
         } else if (id == R.id.logout) {
             firebaseAuth.signOut();
@@ -160,6 +169,11 @@ public class DashBoardActivity extends AppCompatActivity
                     }
                 }
             });
+        }
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.contenido_principal, fragment);
+            ft.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

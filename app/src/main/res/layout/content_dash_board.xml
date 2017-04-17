@@ -13,4 +13,9 @@
     tools:context="com.example.kenneth.smartbudget.DashBoardActivity"
     tools:showIn="@layout/app_bar_dash_board">
 
+    <FrameLayout
+        android:id="@+id/contenido_principal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </RelativeLayout>

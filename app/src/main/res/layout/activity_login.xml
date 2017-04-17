@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.kenneth.smartbudget.LoginActivity"
-    android:background="?attr/colorBackgroundFloating"
+    android:background="@drawable/gradient"
     android:weightSum="1">
 
     <!-- Login progress -->
@@ -93,7 +93,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Iniciar Sesión"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@drawable/button_border"/>
 
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/signInButton"
@@ -109,7 +110,8 @@
                 android:text="\nRegistrarse\n"
                 android:textColor="@color/colorPrimary"
                 android:textAlignment="center"
-                android:id="@+id/textViewSignin" />
+                android:id="@+id/textViewSignin"
+                />
 
 
         </LinearLayout>
