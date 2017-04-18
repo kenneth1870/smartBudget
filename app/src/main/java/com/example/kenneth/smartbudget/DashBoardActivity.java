@@ -30,8 +30,6 @@ import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import static com.example.kenneth.smartbudget.R.id.mas;
-
 public class DashBoardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
     private GoogleApiClient googleApiClient;
@@ -91,6 +89,7 @@ public class DashBoardActivity extends AppCompatActivity
                 }
             }
         };
+        displaySelectedScreen(R.id.inicio);
     }
 
     private void setUserData(FirebaseUser user) {
@@ -136,40 +135,43 @@ public class DashBoardActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+    private void displaySelectedScreen(int itemId) {
         Fragment fragment = null;
-        int id = item.getItemId();
-
-        if (id == R.id.ingresos) {
-            fragment = new IngresosFragment();
-        } else if (id == R.id.ahorros) {
-            fragment = new AhorrosFragment();
-
-        } else if (id == R.id.gastos) {
-            fragment = new GastosFragment();
-
-        } else if (id == mas) {
-            fragment = new MasFragment();
-
-        } else if (id == R.id.configuracion) {
-            fragment = new ConfiguracionFragment();
-
-        } else if (id == R.id.logout) {
-            firebaseAuth.signOut();
-            Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
-                @Override
-                public void onResult(@NonNull Status status) {
-                    if (status.isSuccess()) {
-                        goLogInScreen();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "No hemos podido cerrar sessión", Toast.LENGTH_SHORT).show();
+        switch (itemId) {
+            case R.id.inicio:
+                fragment = new HomeFragment();
+                break;
+            case R.id.ingresos:
+                fragment = new IngresosFragment();
+                break;
+            case R.id.ahorros:
+                fragment = new AhorrosFragment();
+                break;
+            case R.id.gastos:
+                fragment = new GastosFragment();
+                break;
+            case R.id.mas:
+                fragment = new MasFragment();
+                break;
+            case R.id.configuracion:
+                fragment = new ConfiguracionFragment();
+                break;
+            case R.id.logout:
+                firebaseAuth.signOut();
+                Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(@NonNull Status status) {
+                        if (status.isSuccess()) {
+                            goLogInScreen();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "No hemos podido cerrar sessión", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            });
+                });
+                break;
         }
+
+        //replacing the fragment
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.contenido_principal, fragment);
@@ -178,6 +180,12 @@ public class DashBoardActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        displaySelectedScreen(item.getItemId());
         return true;
     }
 
