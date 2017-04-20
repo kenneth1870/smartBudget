@@ -10,10 +10,13 @@
         android:text="Deseas recibir notificaciones ?"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnsiono" />
+        android:id="@+id/btnsiono"
+        android:background="@android:color/transparent"
+        android:textColor="@color/black_overlay" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/verificacion" />
+        android:id="@+id/verificacion"
+        android:layout_height="25dp"
+        android:textAlignment="center" />
 </LinearLayout>

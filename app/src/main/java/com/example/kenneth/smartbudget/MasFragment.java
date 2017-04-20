@@ -59,7 +59,7 @@ public class MasFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Mas");
+        getActivity().setTitle("Más");
     }
 
     @Override

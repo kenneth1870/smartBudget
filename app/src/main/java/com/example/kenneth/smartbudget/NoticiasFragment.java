@@ -15,13 +15,12 @@ public class NoticiasFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_noticias, container, false);
         WebView webView = (WebView) v.findViewById(R.id.webview);
-        webView.loadUrl("https://www.forbes.com.mx/maduro-decidio-quitar-poder-legislativo-venezuela/");
+        webView.loadUrl("https://www.forbes.com.mx/8-frases-de-carlos-slim-para-mejorar-tus-finanzas-personales/");
 
         return  v; }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Noticias");
     }
 }
