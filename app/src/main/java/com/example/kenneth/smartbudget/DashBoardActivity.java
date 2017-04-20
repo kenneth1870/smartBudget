@@ -164,6 +164,10 @@ public class DashBoardActivity extends AppCompatActivity
                 Intent intento = new Intent(getApplicationContext(), ConfiguracionActivity.class);
                 startActivity(intento);
                 break;
+            case R.id.desarrolladores:
+                intento = new Intent(getApplicationContext(), Developers.class);
+                startActivity(intento);
+                break;
             case R.id.logout:
                 firebaseAuth.signOut();
                 Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
