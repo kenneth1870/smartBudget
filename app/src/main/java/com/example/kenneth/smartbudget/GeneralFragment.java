@@ -8,16 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class ConfiguracionFragment extends Fragment {
+
+public class GeneralFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_configuracion, container, false);
+        return inflater.inflate(R.layout.fragment_general, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Configuración");
+        getActivity().setTitle("Mis cuentas");
     }
 }

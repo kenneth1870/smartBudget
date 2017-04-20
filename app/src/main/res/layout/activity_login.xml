@@ -107,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.19"
-                android:text="\nRegistrarse\n"
+                android:text="\n¿No tienes cuenta aún? Crea una.\n"
                 android:textColor="@color/colorPrimary"
                 android:textAlignment="center"
                 android:id="@+id/textViewSignin"

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -50,8 +49,14 @@ public class DashBoardActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Fragment fragment = null;
+                fragment = new GastosFragment();
+                if (fragment != null) {
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.contenedor_principal, fragment);
+                    ft.commit();
+                }
+
             }
         });
 
@@ -129,6 +134,8 @@ public class DashBoardActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intento = new Intent(getApplicationContext(), ConfiguracionActivity.class);
+            startActivity(intento);
             return true;
         }
 
@@ -154,7 +161,8 @@ public class DashBoardActivity extends AppCompatActivity
                 fragment = new MasFragment();
                 break;
             case R.id.configuracion:
-                fragment = new ConfiguracionFragment();
+                Intent intento = new Intent(getApplicationContext(), ConfiguracionActivity.class);
+                startActivity(intento);
                 break;
             case R.id.logout:
                 firebaseAuth.signOut();
@@ -174,9 +182,11 @@ public class DashBoardActivity extends AppCompatActivity
         //replacing the fragment
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.contenido_principal, fragment);
+            ft.replace(R.id.contenedor_principal, fragment);
             ft.commit();
         }
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
