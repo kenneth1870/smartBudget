@@ -34,7 +34,7 @@
             <item
                 android:id="@+id/desarrolladores"
                 android:title="Desarrolladores"
-                tools:icon="@mipmap/ic_launcher" />
+                android:icon="@drawable/ic_people" />
         </menu>
     </item>
 

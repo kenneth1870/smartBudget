@@ -165,8 +165,8 @@ public class DashBoardActivity extends AppCompatActivity
                 startActivity(intento);
                 break;
             case R.id.desarrolladores:
-                intento = new Intent(getApplicationContext(), Developers.class);
-                startActivity(intento);
+                fragment = new DesarrolladoresFragment();
+
                 break;
             case R.id.logout:
                 firebaseAuth.signOut();

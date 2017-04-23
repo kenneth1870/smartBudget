@@ -44,9 +44,6 @@ public class ConfiguracionActivity extends AppCompatActivity  {
 
         LlenarListView();
         DandoClickALosItems();
-
-
-
     }
 
 
@@ -69,7 +66,6 @@ public class ConfiguracionActivity extends AppCompatActivity  {
         milistview.setAdapter(adaptador);
     }
 
-    //  Paso 4.  Crear un OnItemClickListener para ejecutar una acción cuando el usuario escoge un item.
 
 
     public void DandoClickALosItems() {
@@ -80,7 +76,7 @@ public class ConfiguracionActivity extends AppCompatActivity  {
             public void onItemClick(AdapterView<?> paret, View viewClicked,
                                     int position, long id)
             { TextView textView = (TextView) viewClicked;
-                final int Notificaciones = 0; //should be equal to the index in your array.
+                final int Notificaciones = 0;
                 final int Perfil = 1;
                 FragmentTransaction FT = getSupportFragmentManager().beginTransaction();
                 final Fragment perfil= new PerfilFragment();
