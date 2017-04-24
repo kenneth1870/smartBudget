@@ -21,7 +21,8 @@ import static com.example.kenneth.smartbudget.PerfilFragment.texto;
 public class GastosFragment extends Fragment {
 
     public static String DirecUser = "";
-    public static boolean getState = false;
+    public static int indexSpend;
+    private String Spend = "";
 
     @Nullable
     @Override
@@ -33,9 +34,6 @@ public class GastosFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Gastos");
-        if(getState){
-            //GiveMeLocation(view.findViewById(R.id.editText));
-        }
 
         ((Button) view.findViewById(R.id.button_Location)).setOnClickListener(new View.OnClickListener() {
 
@@ -43,6 +41,7 @@ public class GastosFragment extends Fragment {
             public void onClick(View v) {
                 Intent intento = new Intent(getActivity(), MapsActivity.class);
                 getActivity().startActivity(intento);
+                GiveMeLocation(getActivity().findViewById(R.id.editText));
             }
         });
     }
@@ -60,19 +59,19 @@ public class GastosFragment extends Fragment {
         builder1.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        ((EditText)view.findViewById(R.id.editText)).setText(DirecUser+": "+texto.getText().toString());
+                        Spend = DirecUser+": "+texto.getText().toString()+" colones";
+                        ((EditText)view.findViewById(R.id.editText)).setText(Spend);
                     }
                 });
 
         builder1.setNegativeButton("Cancelar",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Se canceló la operación", Toast.LENGTH_SHORT).show();
                     }
                 });
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
-
     };
 }

@@ -38,8 +38,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private Marker posMarker;
-    private String lat;   // coordenadas
-    private String lon;   // coordenadas
     private String locDirection;
     private LocationManager handle;
     private String providerServices;
@@ -81,16 +79,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         Location location = handle.getLastKnownLocation(providerServices);
-        if(location== null){
-            lat="Desconocido";
-            lon="Desconocido";
+        if(location!=null){
+            AddMyMarker(location.getLatitude(), location.getLongitude());
+            getDirection(location);
         }
-        else{
-            lat = String.valueOf(location.getLatitude());
-            lon = String.valueOf(location.getLongitude());
-        }
-        AddMyMarker(location.getLatitude(), location.getLongitude());
-        getDirection(location);
+        else
+            Toast.makeText(getApplicationContext(), "No se pudo obtener la actual posición", Toast.LENGTH_SHORT).show();
     }
 
     public void getDirection(Location loc){
@@ -145,16 +139,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public boolean onMarkerClick(Marker marker) {
         GastosFragment.DirecUser = locDirection;
-        GastosFragment.getState = true;
-
-        //Fragment fragment = null;
-        //fragment = new GastosFragment();
-        //if (fragment != null) {
-        //    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        //    ft.replace(R.id.contenedor_principal, fragment);
-        //    ft.commit();
-        //}
-        Toast.makeText(getApplicationContext(), locDirection, Toast.LENGTH_SHORT).show();
+        super.finish();
         return true;
     }
 }
