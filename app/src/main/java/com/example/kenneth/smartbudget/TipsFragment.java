@@ -47,7 +47,7 @@ public class TipsFragment extends Fragment {
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored) {
                 if (!wasRestored) {
                     if (youTubePlayer == null) {
-                        player.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
+                        //player.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
                         player.loadVideo(VIDEO_ID);
                         player.play();
                         youTubePlayer = player;
