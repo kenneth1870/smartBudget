@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SmartBudget.iml" filepath="$PROJECT_DIR$/SmartBudget.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/smartBudget.iml" filepath="$PROJECT_DIR$/smartBudget.iml" />
     </modules>
   </component>
 </project>
