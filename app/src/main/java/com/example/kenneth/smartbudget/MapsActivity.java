@@ -8,13 +8,9 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
-import android.widget.Button;
-import android.widget.EditText;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -30,8 +26,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-
-import static android.R.attr.fragment;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener,
         GoogleMap.OnMarkerClickListener {
@@ -79,27 +73,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         Location location = handle.getLastKnownLocation(providerServices);
-        if(location!=null){
+        if (location != null) {
             AddMyMarker(location.getLatitude(), location.getLongitude());
             getDirection(location);
-        }
-        else
+        } else
             Toast.makeText(getApplicationContext(), "No se pudo obtener la actual posición", Toast.LENGTH_SHORT).show();
     }
 
-    public void getDirection(Location loc){
+    public void getDirection(Location loc) {
 
-        if(loc != null){
-            if(loc.getLatitude() != 0.0 && loc.getLongitude() != 0.0){
-                try{
+        if (loc != null) {
+            if (loc.getLatitude() != 0.0 && loc.getLongitude() != 0.0) {
+                try {
                     Geocoder geocoder = new Geocoder(this, Locale.getDefault());
                     List<Address> direc = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
-                    if(!direc.isEmpty()){
+                    if (!direc.isEmpty()) {
                         Address direcFinal = direc.get(0);
                         locDirection = direcFinal.getAddressLine(0);
                     }
                 } catch (IOException e) {
-                    locDirection = ""+e;
+                    locDirection = "" + e;
                 }
             }
         }

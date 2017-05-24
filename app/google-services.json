@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "195337917179",
-    "firebase_url": "https://smartbudget-c306d.firebaseio.com",
-    "project_id": "smartbudget-c306d",
-    "storage_bucket": "smartbudget-c306d.appspot.com"
+    "project_number": "631867473063",
+    "firebase_url": "https://smartbudget-71d08.firebaseio.com",
+    "project_id": "smartbudget-71d08",
+    "storage_bucket": "smartbudget-71d08.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:195337917179:android:b67b1d269b5c818f",
+        "mobilesdk_app_id": "1:631867473063:android:b67b1d269b5c818f",
         "android_client_info": {
           "package_name": "com.example.kenneth.smartbudget"
         }
       },
       "oauth_client": [
         {
-          "client_id": "195337917179-ta6qss5etnjf0oesjc4qvohaen2qffbf.apps.googleusercontent.com",
+          "client_id": "631867473063-kipb7r1pgn53erktjomjgr6nev0cuvsp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.kenneth.smartbudget",
@@ -23,13 +23,13 @@
           }
         },
         {
-          "client_id": "195337917179-qarnmufe4pd2q49dds7pp68120kog3q0.apps.googleusercontent.com",
+          "client_id": "631867473063-ua0m2qtq2gvhrl0fl5lc4omjj2ct320s.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAbVXuiKhp1qBGC7Vo0G-auyA4uUEPbQuk"
+          "current_key": "AIzaSyAeGouVnxTcF-57_Q44b4p5eaaXZCk0eXY"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "195337917179-qarnmufe4pd2q49dds7pp68120kog3q0.apps.googleusercontent.com",
+              "client_id": "631867473063-ua0m2qtq2gvhrl0fl5lc4omjj2ct320s.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -11,13 +11,13 @@ public class SplashScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
-        Thread timerThread = new Thread(){
-            public void run(){
-                try{
-                    sleep(2000);
-                }catch(InterruptedException e){
+        Thread timerThread = new Thread() {
+            public void run() {
+                try {
+                    sleep(1000);
+                } catch (InterruptedException e) {
                     e.printStackTrace();
-                }finally{
+                } finally {
                     Intent intent = new Intent(SplashScreen.this, DashBoardActivity.class);
                     startActivity(intent);
                 }

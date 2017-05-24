@@ -168,6 +168,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
+    public void Mensaje(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+
 
     @Override
     protected void onStart() {
@@ -273,6 +278,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             if (task.isSuccessful()) {
                                 finish();
                                 startActivity(new Intent(getApplicationContext(), DashBoardActivity.class));
+                            }else{
+                                Mensaje("Intenta de nuevo!");
+                                goLogInScreen();
                             }
                         }
                     });
@@ -391,12 +399,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+
     private void goSignUp() {
         Intent intent = new Intent(this, SignUpActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
-
+    private void goLogInScreen() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {

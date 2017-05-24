@@ -56,6 +56,7 @@ public class HomeFragment extends Fragment {
         adapter.addFragment(new GeneralFragment(), "Mis cuentas");
         viewPager.setAdapter(adapter);
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

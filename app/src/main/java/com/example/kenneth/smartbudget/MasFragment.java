@@ -56,6 +56,7 @@ public class MasFragment extends Fragment {
         adapter.addFragment(new TipsFragment(), "Tips");
         viewPager.setAdapter(adapter);
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

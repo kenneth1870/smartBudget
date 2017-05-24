@@ -100,9 +100,9 @@ public class DashBoardActivity extends AppCompatActivity
     private void setUserData(FirebaseUser user) {
         nameTextView.setText(user.getDisplayName());
         emailTextView.setText(user.getEmail());
-        if (user.getPhotoUrl() != null){
+        if (user.getPhotoUrl() != null) {
             Glide.with(this).load(user.getPhotoUrl()).into(photoImageView);
-        }else{
+        } else {
             photoImageView.setImageResource(R.drawable.ic_account);
         }
 
@@ -134,8 +134,13 @@ public class DashBoardActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intento = new Intent(getApplicationContext(), ConfiguracionActivity.class);
-            startActivity(intento);
+            Fragment fragment = new ConfigFragment();
+            if (fragment != null) {
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.contenedor_principal, fragment);
+                ft.commit();
+            }
+
             return true;
         }
 
@@ -161,12 +166,10 @@ public class DashBoardActivity extends AppCompatActivity
                 fragment = new MasFragment();
                 break;
             case R.id.configuracion:
-                Intent intento = new Intent(getApplicationContext(), ConfiguracionActivity.class);
-                startActivity(intento);
+                fragment = new ConfigFragment();
                 break;
             case R.id.desarrolladores:
                 fragment = new DesarrolladoresFragment();
-
                 break;
             case R.id.logout:
                 firebaseAuth.signOut();
@@ -189,8 +192,6 @@ public class DashBoardActivity extends AppCompatActivity
             ft.replace(R.id.contenedor_principal, fragment);
             ft.commit();
         }
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

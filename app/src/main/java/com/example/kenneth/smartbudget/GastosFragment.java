@@ -1,6 +1,5 @@
 package com.example.kenneth.smartbudget;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import static android.os.Build.VERSION_CODES.M;
-import static com.example.kenneth.smartbudget.PerfilFragment.texto;
 
 
 public class GastosFragment extends Fragment {
@@ -46,9 +42,11 @@ public class GastosFragment extends Fragment {
         });
     }
 
-    public void GiveMeLocation(final View view){
+    static EditText texto;
+
+    public void GiveMeLocation(final View view) {
         // Uso:
-        texto =  new EditText(view.getContext());
+        texto = new EditText(view.getContext());
         AlertDialog.Builder builder1 = new AlertDialog.Builder(view.getContext());
         builder1.setMessage("Digite su gasto:");
         texto.setText("");
@@ -59,8 +57,8 @@ public class GastosFragment extends Fragment {
         builder1.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Spend = DirecUser+": "+texto.getText().toString()+" colones";
-                        ((EditText)view.findViewById(R.id.editText)).setText(Spend);
+                        Spend = DirecUser + ": " + texto.getText().toString() + " colones";
+                        ((EditText) view.findViewById(R.id.editText)).setText(Spend);
                     }
                 });
 
@@ -73,5 +71,7 @@ public class GastosFragment extends Fragment {
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
-    };
+    }
+
+    ;
 }
