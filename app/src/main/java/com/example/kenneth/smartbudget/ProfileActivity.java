@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView texto_email;
     private ImageView icono_perfil;
     private ImageView icono_fecha;
+    private Button delete_account;
 
 
     @Override
@@ -35,8 +37,9 @@ public class ProfileActivity extends AppCompatActivity {
         texto_email = (TextView) findViewById(R.id.texto_email);
         icono_perfil = (ImageView) findViewById(R.id.icono_perfil);
         icono_fecha = (ImageView) findViewById(R.id.icono_indicador_derecho);
+        delete_account = (Button) findViewById(R.id.delete_account);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+                firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -54,6 +57,11 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 GiveMePassword(findViewById(R.id.icono_indicador_derecho));
 
+            }
+        });
+        delete_account.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                DialogoSiNo(delete_account);
             }
         });
     }
@@ -87,35 +95,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     static EditText texto;
 
-    public void DemeTexto(final View view) {
-// Uso: DemeTexto(findViewById(R.id.btnNombreBoton))
-        texto = new EditText(view.getContext());
-        AlertDialog.Builder builder1 = new
-                AlertDialog.Builder(view.getContext());
-        builder1.setMessage("Digite su nueva contraseña");
-        texto.setText("Dato");
-        texto.selectAll();
-        builder1.setView(texto);
-        builder1.setCancelable(true);
-        builder1.setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        String newPassword = texto.getText().toString();
-                        user.updatePassword(newPassword)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Mensaje("Tu contraseña fue actualizada");
-                                        } else {
-                                            Mensaje("Hemos topad0 con un error, intentalo más tarde :) ");
-                                        }
-                                    }
-                                });
-                    }
-                });
-    }
 
     public void GiveMePassword(final View view) {
         // Uso:
@@ -157,8 +136,42 @@ public class ProfileActivity extends AppCompatActivity {
         alert11.show();
     }
 
-    ;
+    public void DialogoSiNo(View view) {
+// Uso: DialogoSiNo(findViewById(R.id.btnNombreBoton))
+        AlertDialog.Builder builder1 = new
+                AlertDialog.Builder(view.getContext());
+        builder1.setMessage("Estas seguro de hacer esto.?");
+        builder1.setCancelable(true);
+        builder1.setPositiveButton("Si",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Mensaje("Es una lastima de que te vayas!");
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+                        user.delete()
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Mensaje("Hasta pronto!");
+                                        }
+                                    }
+                                });
+
+
+                    }
+                });
+        builder1.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Mensaje("Bien hecho!");
+                    }
+                });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    ;
 
     public void Mensaje(String msg) {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
