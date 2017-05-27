@@ -4,10 +4,66 @@
     android:layout_height="match_parent"
     tools:context="com.example.kenneth.smartbudget.GeneralFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Estamos trabajando para lograrlo :)" />
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        android:id="@+id/tableLayout">
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/common_google_signin_btn_text_dark_default"
+            android:text="Lista de cuentas"
+            android:layout_margin="4dp"
+            tools:gravity="center_horizontal"
+            >
+
+            <TextView
+                android:id="@+id/button1"
+                android:layout_width="115dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
+                android:text="Efectivo"
+                android:typeface="serif"/>
+
+            <TextView
+                android:id="@+id/button2"
+                android:layout_width="115dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dp"
+                android:background="@color/common_google_signin_btn_text_dark_pressed"
+                android:drawableBottom="@android:drawable/ic_input_add"
+                android:text="Añadir cuenta"
+                android:textColor="@color/colorAccent"
+                android:typeface="serif"/>
+        </TableRow>
+
+        <TableRow
+            tools:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/common_google_signin_btn_text_dark_default"
+            android:layout_margin="4dp"
+            >
+            <TextView
+                android:textAlignment="center"
+                android:text="Saldo"
+                android:textColor="@color/colorAccent"
+                android:typeface="serif"
+
+                />
+        </TableRow>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/bargraph"
+                android:layout_width="match_parent"
+                android:background="@color/common_google_signin_btn_text_dark_default"
+                android:layout_height="250dp"
+                android:layout_margin="4dp" />
+
+    </TableLayout>
 </FrameLayout>
