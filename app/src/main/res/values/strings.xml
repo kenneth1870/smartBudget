@@ -103,4 +103,10 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+
+    <string name="lista_cuentas">Lista de Cuentas</string>
+    <string name="Saldo">Saldo</string>
+    <string name="lista_equilibro">Tabla de equilibrio</string>
+    <string name="title_activity_test">test</string>
+
 </resources>
