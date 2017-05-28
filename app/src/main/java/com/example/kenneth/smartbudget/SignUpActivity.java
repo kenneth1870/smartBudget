@@ -199,12 +199,12 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             //checking if success
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 finish();
                                 startActivity(new Intent(getApplicationContext(), DashBoardActivity.class));
-                            }else{
+                            } else {
                                 //display some message here
-                                Toast.makeText(SignUpActivity.this,"Lo sentimos hubo un error al registrar tu cuenta ",Toast.LENGTH_LONG).show();
+                                Toast.makeText(SignUpActivity.this, "Lo sentimos hubo un error al registrar tu cuenta ", Toast.LENGTH_LONG).show();
                             }
                         }
                     });

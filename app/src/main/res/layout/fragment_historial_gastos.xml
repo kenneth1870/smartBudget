@@ -4,26 +4,39 @@
     android:layout_height="match_parent"
     tools:context="com.example.kenneth.smartbudget.HistorialGastosFragment">
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <!-- TODO: Update blank fragment layout -->
-    <TableLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="7dp"
-        android:id="@+id/tableLayout">
+        android:layout_margin="@dimen/margin_container">
 
-        <TableRow
-            tools:gravity="center_horizontal"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/common_google_signin_btn_text_dark_default">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@color/primary_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/lista_equilibro" />
 
             <com.github.mikephil.charting.charts.BarChart
-                android:layout_width="350dp"
-                android:layout_height="350dp"
+                android:id="@+id/bargraph"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
                 android:layout_margin="4dp"
-                android:id="@+id/bargraph"></com.github.mikephil.charting.charts.BarChart>
-        </TableRow>
-    </TableLayout>
+                android:background="@color/common_google_signin_btn_text_dark_default" />
+        </LinearLayout>
 
 
+
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>
 </FrameLayout>

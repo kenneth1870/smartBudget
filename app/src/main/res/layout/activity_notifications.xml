@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.kenneth.smartbudget.NotificationsActivity">
+
+
+    <TextView
+        android:id="@+id/lbl_notifications"
+        android:layout_width="280dp"
+        android:layout_height="52dp"
+        android:paddingTop="@dimen/fab_shadow_radius"
+        android:text="¿Deseas recibir notificaciones.?"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <ToggleButton
+        android:id="@+id/si_no"
+        android:layout_width="94dp"
+        android:layout_height="51dp"
+        android:text="ToggleButton"
+        tools:layout_editor_absoluteX="289dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:layout_alignBottom="@+id/lbl_notifications"
+        android:layout_toRightOf="@+id/lbl_notifications"
+        android:layout_toEndOf="@+id/lbl_notifications" />
+
+</RelativeLayout>
