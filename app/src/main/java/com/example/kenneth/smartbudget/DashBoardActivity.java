@@ -28,6 +28,11 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class DashBoardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
@@ -37,6 +42,7 @@ public class DashBoardActivity extends AppCompatActivity
     private TextView emailTextView;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +111,7 @@ public class DashBoardActivity extends AppCompatActivity
         } else {
             photoImageView.setImageResource(R.drawable.ic_account);
         }
+
 
     }
 
@@ -234,5 +241,7 @@ public class DashBoardActivity extends AppCompatActivity
             firebaseAuth.removeAuthStateListener(firebaseAuthListener);
         }
     }
+
+
 
 }

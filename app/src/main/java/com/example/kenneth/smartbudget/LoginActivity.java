@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         signInButton.setSize(SignInButton.SIZE_WIDE);
 
-        signInButton.setColorScheme(SignInButton.COLOR_DARK);
+        signInButton.setColorScheme(SignInButton.COLOR_LIGHT);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override

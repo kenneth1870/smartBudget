@@ -14,6 +14,7 @@
     android:weightSum="1">
 
     <!-- Login progress -->
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
@@ -32,26 +33,25 @@
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:elevation="0dp"
+            android:orientation="vertical"
             android:weightSum="1">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                anddroid:srcCompat="@drawable/icon_wallet"
                 android:id="@+id/imageView3"
-                android:layout_weight="0.00" />
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                anddroid:srcCompat="@drawable/wallet" />
 
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
-                android:id="@+id/title"
+                android:text="Administra tus finanzas con SmartBudget \n \n "
                 android:textAlignment="center"
-                android:textSize="16sp"
-                android:text="Administra tus finanzas con SmartBudget \n \n " />
+                android:textSize="16sp" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -64,7 +64,7 @@
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -91,10 +91,13 @@
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/fab_shadow_offset"
+                android:layout_marginLeft="@dimen/cardview_default_elevation"
+                android:layout_marginRight="@dimen/cardview_default_elevation"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/button_border"
                 android:text="Iniciar Sesión"
-                android:textStyle="bold"
-                android:background="@drawable/button_border"/>
+                android:textStyle="bold" />
 
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/signInButton"
@@ -104,14 +107,13 @@
                 android:layout_centerVertical="true" />
 
             <TextView
+                android:id="@+id/textViewSignin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.19"
                 android:text="\n¿No tienes cuenta aún? Crea una.\n"
-                android:textColor="@color/colorPrimary"
                 android:textAlignment="center"
-                android:id="@+id/textViewSignin"
-                />
+                android:textColor="@color/colorPrimary" />
 
 
         </LinearLayout>

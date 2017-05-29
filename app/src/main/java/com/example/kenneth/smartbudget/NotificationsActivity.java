@@ -1,5 +1,6 @@
 package com.example.kenneth.smartbudget;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.CompoundButton;
@@ -14,15 +15,17 @@ public class NotificationsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
-        ToggleButton toggle = (ToggleButton) findViewById(R.id.si_no);
+        final ToggleButton toggle = (ToggleButton) findViewById(R.id.si_no);
         toggle.setOnCheckedChangeListener(new
                                                   CompoundButton.OnCheckedChangeListener() {
                                                       public void onCheckedChanged(CompoundButton buttonView, boolean
                                                               isChecked) {
                                                           if (isChecked) {
                                                               Mensaje("Te enviaremos notificaciones.");
+                                                              toggle.setBackgroundColor(Color.rgb(0, 172, 193));
                                                           } else {
                                                               Mensaje("Lo sentimos!");
+                                                              toggle.setBackgroundColor(Color.GRAY);
                                                           }
                                                       }
                                                   });

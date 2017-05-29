@@ -52,9 +52,10 @@ public class HomeFragment extends Fragment {
 
     private void poblarViewPager(ViewPager viewPager) {
         HomeFragment.AdaptadorSecciones adapter = new HomeFragment.AdaptadorSecciones(getFragmentManager());
-        adapter.addFragment(new HistorialGastosFragment(), "último mes");
+        adapter.addFragment(new HistorialGastosFragment(), "Último mes");
         adapter.addFragment(new GeneralFragment(), "Mis cuentas");
         viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(2, false);
     }
 
     @Override
