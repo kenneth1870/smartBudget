@@ -31,6 +31,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ConfiguracionActivity"
+            android:label="Configuración"
+            android:parentActivityName=".DashBoardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashBoardActivity" />
+        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -46,12 +54,7 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".DetalleActivity" />
-        <activity android:name=".NotificationsActivity" />
-        <activity android:name=".ProfileActivity" />
-
-        <!--             Defining Services -->
-
+        <activity android:name=".DetalleActivity"></activity>
     </application>
 
 </manifest>
