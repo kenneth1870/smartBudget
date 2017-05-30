@@ -44,6 +44,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +93,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
     private ProgressBar progressBar;
     private TextView textViewSignin;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference smartbudget_db;
+
 
 
     @Override
@@ -160,6 +168,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+                    saveUser(user.getUid(), user.getEmail(), user.getDisplayName(), user.getPhotoUrl().toString());
                     goMainScreen();
                 }
             }
@@ -508,6 +517,30 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (firebaseAuthListener != null) {
             firebaseAuth.removeAuthStateListener(firebaseAuthListener);
         }
+    }
+
+    private void saveUser( String id, String email, String name, String photo_url) {
+        smartbudget_db = database.getReference("Users");
+        User carro = new User(id,  name, email,  photo_url);
+        if (smartbudget_db.child("user"+id).getKey() == "user"+id){
+            Toast.makeText(getApplicationContext(), "Usuario ya existe", Toast.LENGTH_SHORT).show();
+        }else {
+            smartbudget_db.child("user"+id).setValue(carro);
+            smartbudget_db.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // Toast.makeText(getApplicationContext(), "Usuario guardado", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    //  Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+
+
     }
 }
 

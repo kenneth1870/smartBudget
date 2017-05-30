@@ -60,6 +60,7 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
 
     // UI references.
     private AutoCompleteTextView mEmailView;
+    private AutoCompleteTextView mNameView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
@@ -74,6 +75,7 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
         setContentView(R.layout.activity_sign_up);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mNameView = (AutoCompleteTextView) findViewById(R.id.name);
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -104,8 +106,8 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                //saveUser(user.getUid(), user.getEmail(), user.getDisplayName(), user.getPhotoUrl().toString());
                 if (user != null) {
+                    saveUser(user.getUid(), user.getEmail(), mNameView.getText().toString(), "");
                     goMainScreen();
                 }
             }
@@ -399,12 +401,12 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
             smartbudget_db.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    Toast.makeText(getApplicationContext(), "Usuario guardado", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getApplicationContext(), "Usuario guardado", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
                 }
             });
 

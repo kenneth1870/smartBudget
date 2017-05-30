@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,16 +27,18 @@
                     android:orientation="vertical"
                     android:padding="@dimen/padding_container">
 
-                    <TextView android:textColor="@color/primary_text"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="@string/lista_cuentas" />
+                        android:text="@string/lista_cuentas"
+                        android:textColor="@color/primary_text" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:weightSum="1">
 
                         <LinearLayout
                             android:layout_width="@dimen/width_button"
@@ -60,7 +63,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="@dimen/width_button"
+                            android:layout_width="99dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginLeft="5dp"
@@ -74,15 +77,17 @@
                                 android:layout_weight="1"
                                 android:orientation="vertical">
 
-                                <TextView android:textColor="@color/primary_text"
+                                <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Añadir" />
+                                    android:text="Añadir"
+                                    android:textColor="@color/primary_text" />
 
-                                <TextView android:textColor="@color/primary_text"
+                                <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Cuenta" />
+                                    android:text="Cuenta"
+                                    android:textColor="@color/primary_text" />
                             </LinearLayout>
 
                             <ImageButton
@@ -108,12 +113,22 @@
                     android:layout_margin="@dimen/margin_container"
                     android:orientation="vertical">
 
-                    <TextView android:textColor="@color/primary_text"
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="300dp"
+                        android:gravity="right"
+                        app:srcCompat="@drawable/icon_edit"
+                        tools:layout_width="match_parent" />
+
+                    <TextView
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="@string/Saldo" />
+                        android:text="@string/Saldo"
+                        android:textColor="@color/primary_text" />
 
                     <TextView
                         android:id="@+id/saldo"
@@ -149,11 +164,11 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:textColor="@color/primary_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="@string/lista_equilibro" />
+                        android:text="@string/lista_equilibro"
+                        android:textColor="@color/primary_text" />
 
                     <com.github.mikephil.charting.charts.BarChart
                         android:id="@+id/bargraph"
@@ -169,5 +184,5 @@
     </ScrollView>
 
 
-</LinearLayout>
+</RelativeLayout>
 
