@@ -9,15 +9,16 @@ public class User {
     String name;
     String email;
     String photo_url;
+    String lista_cuentas;
 
-    public User() {
-    }
+    public User() { }
 
-    public User(String id, String name, String email, String photo_url) {
+    public User(String id, String name, String email, String photo_url, String lista_cuentas) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.photo_url = photo_url;
+        this.lista_cuentas = lista_cuentas;
     }
 
     public String getId() {
@@ -51,4 +52,8 @@ public class User {
     public void setPhoto_url(String photo_url) {
         this.photo_url = photo_url;
     }
+
+    public String getLista_cuentas() {return lista_cuentas; }
+
+    public void setLista_cuentas(String lista_cuentas) {this.lista_cuentas = lista_cuentas;}
 }

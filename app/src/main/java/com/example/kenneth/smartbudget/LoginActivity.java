@@ -168,7 +168,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    saveUser(user.getUid(), user.getEmail(), user.getDisplayName(), user.getPhotoUrl().toString());
+                    saveUser(user.getUid(), user.getEmail(), user.getDisplayName(), user.getPhotoUrl().toString(),"");
                     goMainScreen();
                 }
             }
@@ -519,9 +519,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    private void saveUser( String id, String email, String name, String photo_url) {
+    private void saveUser( String id, String email, String name, String photo_url, String lista_cuentas) {
         smartbudget_db = database.getReference("Users");
-        User carro = new User(id,  name, email,  photo_url);
+        User carro = new User(id,  name, email,  photo_url,lista_cuentas);
         if (smartbudget_db.child("user"+id).getKey() == "user"+id){
             Toast.makeText(getApplicationContext(), "Usuario ya existe", Toast.LENGTH_SHORT).show();
         }else {

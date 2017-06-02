@@ -32,13 +32,11 @@ public class HomeFragment extends Fragment {
 
         if (savedInstanceState == null) {
             insertarTabs(container);
-
             // Setear adaptador al viewpager.
             viewPager = (ViewPager) view.findViewById(R.id.pager_home);
             poblarViewPager(viewPager);
             pestanas.setupWithViewPager(viewPager);
         }
-
         return view;
     }
 
