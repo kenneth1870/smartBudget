@@ -28,14 +28,10 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import static android.R.attr.fragment;
 import static com.example.kenneth.smartbudget.IngresosFragment.DemeTexto;
+import static com.example.kenneth.smartbudget.R.id.map;
 
 public class DashBoardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
@@ -179,8 +175,8 @@ public class DashBoardActivity extends AppCompatActivity
                 fragment = new AhorrosFragment();
                 break;
             case R.id.gastos:
-                BtnFloatFragment = false;
-                fragment = new GastosFragment();
+                fragment = new BaseGastosfragment();
+
                 break;
             case R.id.mas:
                 BtnFloatFragment = false;
@@ -257,7 +253,6 @@ public class DashBoardActivity extends AppCompatActivity
             firebaseAuth.removeAuthStateListener(firebaseAuthListener);
         }
     }
-
 
 
 }
