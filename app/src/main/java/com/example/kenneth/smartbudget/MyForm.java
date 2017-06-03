@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import static android.R.string.no;
+import static android.os.Build.VERSION_CODES.M;
 import static com.example.kenneth.smartbudget.IngresosFragment.MyAcounts;
 
 /**
@@ -35,6 +36,7 @@ public class MyForm {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     private int ID;
+    private boolean Activate = true;
     private Context MyContext;
     private LinearLayout MyLayout;
 
@@ -50,6 +52,7 @@ public class MyForm {
     private Spinner SpinType;
 
     private Button BtnSave;
+    private Button BtnClear;
 
     public MyForm(Context myContext, int ID) {
         MyContext = myContext;
@@ -94,11 +97,18 @@ public class MyForm {
         SpinType.setBackgroundColor(Color.WHITE);
 
         BtnSave = new Button(MyContext);
-        BtnSave.setText("Guardar");
+        BtnSave.setText("Guardar cuenta");
         BtnSave.setWidth(MyLayout.getWidth());
         BtnSave.setTextColor(Color.BLACK);
         BtnSave.setBackgroundColor(Color.WHITE);
         BtnSave.setBackgroundResource(R.drawable.borde);
+
+        BtnClear = new Button(MyContext);
+        BtnClear.setText("Borrar cuenta");
+        BtnClear.setWidth(MyLayout.getWidth());
+        BtnClear.setTextColor(Color.BLACK);
+        BtnClear.setBackgroundColor(Color.WHITE);
+        BtnClear.setBackgroundResource(R.drawable.borde);
 
         MyLayout.addView(TextNameAcount);
         MyLayout.addView(EditNameAcount);
@@ -109,6 +119,7 @@ public class MyForm {
         MyLayout.addView(TextType);
         MyLayout.addView(SpinType);
         MyLayout.addView(BtnSave);
+        MyLayout.addView(BtnClear);
     }
 
     public LinearLayout GetForm(){return this.MyLayout;}
@@ -117,9 +128,34 @@ public class MyForm {
         BtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IngresosFragment.MyAcounts.set(ID,EditNameAcount.getText().toString());
-                saveIngreso(EditNameAcount.getText().toString(), EditRode.getText().toString(), SpinCoin.getSelectedItem().toString(),SpinType.getSelectedItem().toString());
-                Toast.makeText(MyContext, "Se ha guardado el ingreso", Toast.LENGTH_SHORT).show();
+                if(!Activate){
+                    IngresosFragment.MyAcounts.set(ID,EditNameAcount.getText().toString());
+                    saveIngreso(EditNameAcount.getText().toString(), EditRode.getText().toString(), SpinCoin.getSelectedItem().toString(),SpinType.getSelectedItem().toString());
+                    Toast.makeText(MyContext, "Se ha recuperado esta cuenta", Toast.LENGTH_SHORT).show();
+                    Activate = true;
+
+                }
+                else{
+                    IngresosFragment.MyAcounts.set(ID,EditNameAcount.getText().toString());
+                    saveIngreso(EditNameAcount.getText().toString(), EditRode.getText().toString(), SpinCoin.getSelectedItem().toString(),SpinType.getSelectedItem().toString());
+                    Toast.makeText(MyContext, "Se ha guardado el ingreso", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public void ClearAccount(){
+        BtnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!Activate){
+                    Toast.makeText(MyContext, "Esta cuenta ya ha sido borrada", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    BorrarIngreso(IngresosFragment.MyAcounts.get(ID));
+                    Activate = false;
+                    Toast.makeText(MyContext, "Se ha borrado el ingreso", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -147,4 +183,25 @@ public class MyForm {
             public void onCancelled(DatabaseError databaseError) { }
         });
     }
+
+    private void BorrarIngreso(String nombreobj) {
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        smartbudget_db = database.getReference("Users");
+        smartbudget_db = smartbudget_db.child("user"+user.getUid());
+
+        smartbudget_db.child("Ingresos").child(nombreobj).removeValue();
+
+        smartbudget_db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) { }
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+
+    }
+
+    public boolean GetActivate(){return Activate;}
 }

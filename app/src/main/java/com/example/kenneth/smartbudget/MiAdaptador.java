@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static com.example.kenneth.smartbudget.IngresosFragment.MyAcounts;
 import static com.example.kenneth.smartbudget.IngresosFragment.MyForms;
@@ -65,13 +66,35 @@ public class MiAdaptador extends BaseExpandableListAdapter{
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        tv = new TextView(contexto);
-        tv.setText("           "+ MyAcounts.get(groupPosition));
-        tv.setTextSize(25);
-        tv.setHeight(200);
-        tv.setBackgroundColor(Color.rgb(0,161,181));
-        tv.setTextColor(Color.WHITE);
-        return tv;
+        if(groupPosition > cont) {
+            tv = new TextView(contexto);
+            tv.setText("           "+ MyAcounts.get(groupPosition));
+            tv.setTextSize(25);
+            tv.setHeight(200);
+            tv.setBackgroundColor(Color.rgb(0,161,181));
+            tv.setTextColor(Color.WHITE);
+            return tv;
+        }
+        else{
+            if(MyForms.get(groupPosition).GetActivate()){
+                tv = new TextView(contexto);
+                tv.setText("           "+ MyAcounts.get(groupPosition));
+                tv.setTextSize(25);
+                tv.setHeight(200);
+                tv.setBackgroundColor(Color.rgb(0,161,181));
+                tv.setTextColor(Color.WHITE);
+                return tv;
+            }
+            else{
+                tv = new TextView(contexto);
+                tv.setText("Cuenta borrada");
+                tv.setTextSize(25);
+                tv.setHeight(200);
+                tv.setBackgroundColor(Color.BLACK);
+                tv.setTextColor(Color.WHITE);
+                return tv;
+            }
+        }
     }
 
     @Override
@@ -83,11 +106,21 @@ public class MiAdaptador extends BaseExpandableListAdapter{
             MyForm newForm = new MyForm(contexto, cont);
             MyForms.add(newForm);
             newForm.LoadSave();
+            newForm.ClearAccount();
             return newForm.GetForm();
         }
         else {
-            MyForms.get(groupPosition).LoadSave();
-            return MyForms.get(groupPosition).GetForm();
+            if(!MyForms.get(groupPosition).GetActivate()){
+                tv.setBackgroundColor(Color.BLACK);
+                tv.setTextColor(Color.WHITE);
+                tv.setText("Cuenta borrada");
+                return MyForms.get(groupPosition).GetForm();
+            }
+            else{
+                MyForms.get(groupPosition).LoadSave();
+                MyForms.get(groupPosition).ClearAccount();
+                return MyForms.get(groupPosition).GetForm();
+            }
         }
     }
 
