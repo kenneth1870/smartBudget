@@ -5,12 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +43,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 import static com.example.kenneth.smartbudget.GastosFragment.DirecUser;
+import static com.example.kenneth.smartbudget.IngresosFragment.MyAdapter;
 import static com.example.kenneth.smartbudget.R.drawable.ahorro;
 import static com.example.kenneth.smartbudget.R.drawable.googleg_disabled_color_18;
 
@@ -61,8 +67,9 @@ public class GeneralFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_general, container, false);
-
+        OnclickDelImageView(view.findViewById(R.id.añadircuenta));
         //mostrarGraficaRedonda(view);
+
         validarUsuario(view);
         mostrarSaldo();
         return view;
@@ -81,6 +88,7 @@ public class GeneralFragment extends Fragment {
                 EditarSaldoIcono(v);
             }
         });
+
     }
 
     static EditText texto;
@@ -193,7 +201,7 @@ public class GeneralFragment extends Fragment {
 
 
                         entries.add(new Entry(4f,Integer.parseInt(monto_actual)));
-                        MensajeOK(monto_actual+"");
+                        //MensajeOK(monto_actual+"");
                     //entries = new ArrayList<>();
                     //entries.add(new Entry(12f, 3));
                     //entries.add(new Entry(18f, 4));
@@ -247,5 +255,29 @@ aux.setVisibility(aux.INVISIBLE);} else {aux.setVisibility(aux.VISIBLE);}*/
             MensajeOK("no hay"+user.getEmail());
         }
     }
+
+    public void OnclickDelImageView(View view) {
+        // Ejemplo  OnclickDelImageView(R.id.MiImageView);
+
+        ImageView miImageView = (ImageView)  view;
+        //  final String msg = miImageView.getText().toString();       // 2.  Programar el evento onclick
+        miImageView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // if(msg.equals("Texto")){Mensaje("Texto en el botón ");};
+                switch (v.getId()) {
+
+                    case R.id.añadircuenta:
+                        IngresosFragment newFragment = new IngresosFragment();
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.replace(R.id.exv, newFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+
+                        break;
+                    default:break; }// fin de casos
+            }// fin del onclick
+        });
+    }// fin de OnclickDelImageView
 
 }
