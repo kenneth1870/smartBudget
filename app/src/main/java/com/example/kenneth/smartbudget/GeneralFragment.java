@@ -41,11 +41,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 import static com.example.kenneth.smartbudget.GastosFragment.DirecUser;
 import static com.example.kenneth.smartbudget.IngresosFragment.MyAdapter;
+import static com.example.kenneth.smartbudget.IngresosFragment.texto;
 import static com.example.kenneth.smartbudget.R.drawable.ahorro;
 import static com.example.kenneth.smartbudget.R.drawable.googleg_disabled_color_18;
 
@@ -108,6 +110,7 @@ public class GeneralFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int id) {
                         Spend = texto.getText().toString();
                         EditarSaldo(Spend);
+                        guardarSaldo();
 
                     }
                 });
@@ -247,10 +250,10 @@ aux.setVisibility(aux.INVISIBLE);} else {aux.setVisibility(aux.VISIBLE);}*/
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
-
         if(user!=null){
             //MensajeOK("mostrar"+user.getEmail());
             mostrarGraficaRedonda(view);
+            //guardarSaldo();
         }else{
             MensajeOK("no hay"+user.getEmail());
         }
@@ -280,4 +283,44 @@ aux.setVisibility(aux.INVISIBLE);} else {aux.setVisibility(aux.VISIBLE);}*/
         });
     }// fin de OnclickDelImageView
 
+    public void guardarSaldo(){
+
+       // String nombreIngreso =
+        //MyAdapter.CreateFather(nombreIngreso);
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        // se supone que ya usted creo el objeto carro en su firebase
+        smartbudget_db = database.getReference("Users");
+        smartbudget_db = smartbudget_db.child("user"+user.getUid());
+        smartbudget_db = smartbudget_db.child("Ingresos");
+        smartbudget_db =  smartbudget_db.child("Comida").child("Monto");
+        smartbudget_db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long numChildren = dataSnapshot.getChildrenCount();
+                String monto = dataSnapshot.getValue(String.class);
+
+                /*List<String> listaIngreso = new ArrayList<>();
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    Ingreso  ingreso = postSnapshot.getValue(Ingreso.class);
+                    monto = ingreso.getValor();
+                    listaIngreso.add(monto);
+                }*/
+
+
+                if(monto!=null){
+                   // TextView Mi_textview = (TextView) getActivity().findViewById(R.id.saldo);
+                   // TextView Mi_textview2 = (TextView) getActivity().findViewById(R.id.efectivo);
+                    //Mi_textview.setText("₡"+monto_actual);
+                    //Mi_textview2.setText("₡"+monto_actual);
+                    MensajeOK(monto);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }
