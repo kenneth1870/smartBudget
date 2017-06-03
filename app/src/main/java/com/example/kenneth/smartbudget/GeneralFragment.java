@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -23,6 +24,13 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,6 +40,8 @@ import java.util.Date;
 import java.util.Random;
 
 import static com.example.kenneth.smartbudget.GastosFragment.DirecUser;
+import static com.example.kenneth.smartbudget.R.drawable.ahorro;
+import static com.example.kenneth.smartbudget.R.drawable.googleg_disabled_color_18;
 
 
 public class GeneralFragment extends Fragment {
@@ -43,38 +53,18 @@ public class GeneralFragment extends Fragment {
     public static int indexSpend;
     private String Spend = "";
 
+    private FirebaseAuth firebaseAuth;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference smartbudget_db;
+    User user;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_general, container, false);
 
-        pieChart = (PieChart) view.findViewById(R.id.chart);
-        entries = new ArrayList<>();
-        entries.add(new Entry(4f, 0));
-        entries.add(new Entry(8f, 1));
-        entries.add(new Entry(6f, 2));
-        entries.add(new Entry(12f, 3));
-        entries.add(new Entry(18f, 4));
-        entries.add(new Entry(9f, 5));
-
-        PieDataSet dataset = new PieDataSet(entries, "# of Calls");
-        labels = new ArrayList<String>();
-
-        labels.add("January");
-        labels.add("February");
-        labels.add("March");
-        labels.add("April");
-        labels.add("May");
-        labels.add("June");
-
-        PieData data = new PieData(labels, dataset);
-        dataset.setColors(ColorTemplate.COLORFUL_COLORS); //
-        pieChart.setDescription("Description");
-        pieChart.setData(data);
-
-        pieChart.animateY(5000);
-
-        pieChart.saveToGallery("/sd/mychart.jpg", 85);
+        //mostrarGraficaRedonda(view);
+        validarUsuario(view);
+        mostrarSaldo();
         return view;
     }
 
@@ -108,7 +98,8 @@ public class GeneralFragment extends Fragment {
         builder1.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Spend = DirecUser + ": " + texto.getText().toString() + " colones";
+                        Spend = texto.getText().toString();
+                        EditarSaldo(Spend);
 
                     }
                 });
@@ -123,4 +114,138 @@ public class GeneralFragment extends Fragment {
         AlertDialog alert11 = builder1.create();
         alert11.show();
     }
+    private void EditarSaldo( String monto_actual) {
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        smartbudget_db = database.getReference("Users");
+        smartbudget_db = smartbudget_db.child("user"+user.getUid());
+        smartbudget_db = smartbudget_db.child("lista_cuentas");
+
+        smartbudget_db.child("monto_actual").setValue(monto_actual);//Guarda el objeto ahorro en la lista de ahorros.
+
+        smartbudget_db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) { }
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+    }
+
+    public void mostrarSaldo() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        // se supone que ya usted creo el objeto carro en su firebase
+        smartbudget_db = database.getReference("Users");
+        smartbudget_db = smartbudget_db.child("user"+user.getUid());
+        smartbudget_db = smartbudget_db.child("lista_cuentas");
+        smartbudget_db =  smartbudget_db.child("monto_actual");
+        smartbudget_db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long numChildren = dataSnapshot.getChildrenCount();
+                String monto_actual = dataSnapshot.getValue(String.class);
+
+                if(monto_actual!=null){
+                    TextView Mi_textview = (TextView) getActivity().findViewById(R.id.saldo);
+                    TextView Mi_textview2 = (TextView) getActivity().findViewById(R.id.efectivo);
+                    Mi_textview.setText("₡"+monto_actual);
+                    Mi_textview2.setText("₡"+monto_actual);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void MensajeOK(String msg){
+        View v1 = getActivity().getWindow().getDecorView().getRootView();
+        AlertDialog.Builder builder1 = new AlertDialog.Builder( v1.getContext());
+        builder1.setMessage(msg);
+        builder1.setCancelable(true);
+        builder1.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {} });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    public void mostrarGraficaRedonda(final View view ){
+        entries = new ArrayList<>();
+       firebaseAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
+        smartbudget_db = database.getReference("Users");
+        smartbudget_db = smartbudget_db.child("user"+user.getUid());
+        smartbudget_db = smartbudget_db.child("lista_cuentas");
+        smartbudget_db =  smartbudget_db.child("monto_actual");
+        smartbudget_db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long numChildren = dataSnapshot.getChildrenCount();
+                String monto_actual = dataSnapshot.getValue(String.class);
+
+                if(monto_actual!=null){
+                    pieChart = (PieChart) view.findViewById(R.id.chart);
+
+
+                        entries.add(new Entry(4f,Integer.parseInt(monto_actual)));
+                        MensajeOK(monto_actual+"");
+                    //entries = new ArrayList<>();
+                    //entries.add(new Entry(12f, 3));
+                    //entries.add(new Entry(18f, 4));
+                    // entries.add(new Entry(9f, 5));
+                  /*entries.add(new Entry(40f, 100));
+                    entries.add(new Entry(8f, 1));
+                    entries.add(new Entry(6f, 2));*/
+
+                    PieDataSet dataset = new PieDataSet(entries, "# of Calls");
+                    labels = new ArrayList<String>();
+
+                    labels.add("January");
+                    labels.add("February");
+                    labels.add("March");
+                    labels.add("April");
+                    labels.add("May");
+                    labels.add("June");
+
+                    PieData data = new PieData(labels, dataset);
+                    dataset.setColors(ColorTemplate.COLORFUL_COLORS); //
+                    pieChart.setDescription("Description");
+                    pieChart.setData(data);
+
+                    pieChart.animateY(3000); //hace aparecer
+
+                    pieChart.saveToGallery("/sd/mychart.jpg", 85);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        //android:visibility="invisible"
+/*TableLayout aux = (TableLayout) findViewById(R.id.tablebotones);
+//aux.setVisibility(aux.VISIBLE);
+if (aux.getVisibility()==aux.VISIBLE){
+aux.setVisibility(aux.INVISIBLE);} else {aux.setVisibility(aux.VISIBLE);}*/
+
+    }
+    public void validarUsuario(final View view){
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        if(user!=null){
+            //MensajeOK("mostrar"+user.getEmail());
+            mostrarGraficaRedonda(view);
+        }else{
+            MensajeOK("no hay"+user.getEmail());
+        }
+    }
+
 }

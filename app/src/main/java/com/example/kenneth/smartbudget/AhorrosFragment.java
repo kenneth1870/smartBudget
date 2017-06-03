@@ -51,7 +51,7 @@ public class AhorrosFragment extends Fragment {
         // alambramos el Button
 
         LlenarListaObjetos();
-       // LlenarListView();
+        //LlenarListView();
         RegistrarClicks();
 
         Button MiButton;
@@ -62,7 +62,7 @@ public class AhorrosFragment extends Fragment {
             public void onClick(View arg0) {
                 SimpleDateFormat today = new SimpleDateFormat("dd/M/yyyy");
                 String date = today.format(new Date());
-               // saveCuenta("ahorros","gastos","ingresos","0","Efectivo","Dolares");
+                //saveCuenta("ahorros","gastos","ingresos","0","Efectivo","Dolares");
                 saveAhorro(date, date ,"1" ,"99999", "Añonuevo","Semanal");
                 LeeObjetoEnFirebase("ahorro01");
 
