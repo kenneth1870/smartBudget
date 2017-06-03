@@ -34,6 +34,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static android.R.attr.fragment;
+import static com.example.kenneth.smartbudget.IngresosFragment.DemeTexto;
+
 public class DashBoardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
     private GoogleApiClient googleApiClient;
@@ -43,6 +46,7 @@ public class DashBoardActivity extends AppCompatActivity
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
+    public static boolean BtnFloatFragment = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +59,17 @@ public class DashBoardActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = null;
-                fragment = new GastosFragment();
-                if (fragment != null) {
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.contenedor_principal, fragment);
-                    ft.commit();
+                if(BtnFloatFragment){
+                    DemeTexto(findViewById(R.id.fab));
+                }
+                else {
+                    Fragment fragment = null;
+                    fragment = new GastosFragment();
+                    if (fragment != null) {
+                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.contenedor_principal, fragment);
+                        ft.commit();
+                    }
                 }
 
             }
@@ -158,24 +167,31 @@ public class DashBoardActivity extends AppCompatActivity
         Fragment fragment = null;
         switch (itemId) {
             case R.id.inicio:
+                BtnFloatFragment = false;
                 fragment = new HomeFragment();
                 break;
             case R.id.ingresos:
+                BtnFloatFragment = true;
                 fragment = new IngresosFragment();
                 break;
             case R.id.ahorros:
+                BtnFloatFragment = false;
                 fragment = new AhorrosFragment();
                 break;
             case R.id.gastos:
+                BtnFloatFragment = false;
                 fragment = new GastosFragment();
                 break;
             case R.id.mas:
+                BtnFloatFragment = false;
                 fragment = new MasFragment();
                 break;
             case R.id.configuracion:
+                BtnFloatFragment = false;
                 fragment = new ConfigFragment();
                 break;
             case R.id.desarrolladores:
+                BtnFloatFragment = false;
                 fragment = new DesarrolladoresFragment();
                 break;
             case R.id.logout:

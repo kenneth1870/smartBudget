@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "631867473063-f9rtleiqc53rc8m9u9hlv9g4v606hvqq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kenneth.smartbudget",
+            "certificate_hash": "ea5337e718b2395513fb1926929430db6e69dd2d"
+          }
+        },
+        {
           "client_id": "631867473063-kipb7r1pgn53erktjomjgr6nev0cuvsp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

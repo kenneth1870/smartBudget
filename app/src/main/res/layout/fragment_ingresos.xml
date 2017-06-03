@@ -1,13 +1,26 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent"
     tools:context="com.example.kenneth.smartbudget.IngresosFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Estamos trabajando para lograrlo :)" />
 
+    <ExpandableListView
+        android:id="@+id/exv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alwaysDrawnWithCache="true"
+        android:animateLayoutChanges="false"
+        android:animationCache="true"
+        android:background="@drawable/borde"
+        android:backgroundTintMode="add"
+        android:childDivider="@drawable/ic_more"
+        android:contentDescription="Pulsa para mas opciones"
+        android:contextClickable="true"
+        android:divider="@drawable/borde"
+        android:dividerHeight="@dimen/fab_labels_margin"
+        android:footerDividersEnabled="true"
+        android:headerDividersEnabled="true" />
 </FrameLayout>

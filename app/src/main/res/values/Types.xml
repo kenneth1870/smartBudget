@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Savings">
+        <item>Anual</item>
+        <item>Mensual</item>
+        <item>Quincenal</item>
+        <item>Semanal</item>
+    </string-array>
+
+    <string-array name="Coin">
+        <item>CRC</item>
+        <item>USD</item>
+    </string-array>
+</resources>
