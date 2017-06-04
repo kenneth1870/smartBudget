@@ -186,7 +186,6 @@ public class DashBoardActivity extends AppCompatActivity
                 break;
             case R.id.gastos:
                 BtnFloatFragmentGastos = true;
-                //fragment = new BaseGastosfragment();
                 fragment = new GastosFragment();
                 break;
             case R.id.mas:
