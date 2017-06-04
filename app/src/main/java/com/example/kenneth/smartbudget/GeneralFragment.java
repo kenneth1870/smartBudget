@@ -285,6 +285,7 @@ aux.setVisibility(aux.INVISIBLE);} else {aux.setVisibility(aux.VISIBLE);}*/
         });
     }// fin de OnclickDelImageView
 
+
     public void guardarSaldo(){
         VariablesGlobales vg = VariablesGlobales.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();

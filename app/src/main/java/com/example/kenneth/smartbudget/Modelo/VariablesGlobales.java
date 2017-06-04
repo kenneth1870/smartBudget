@@ -18,7 +18,6 @@ public class VariablesGlobales {
     public String getMitexto() {
         return mitexto;
     }
-
     public void setMitexto(String mitexto) {
         this.mitexto = mitexto;
     }
