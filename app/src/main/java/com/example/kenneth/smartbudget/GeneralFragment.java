@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kenneth.smartbudget.Modelo.VariablesGlobales;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.BarData;
@@ -44,10 +45,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import static android.R.id.list;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 import static com.example.kenneth.smartbudget.GastosFragment.DirecUser;
 import static com.example.kenneth.smartbudget.IngresosFragment.MyAdapter;
-import static com.example.kenneth.smartbudget.IngresosFragment.texto;
 import static com.example.kenneth.smartbudget.R.drawable.ahorro;
 import static com.example.kenneth.smartbudget.R.drawable.googleg_disabled_color_18;
 
@@ -74,6 +75,7 @@ public class GeneralFragment extends Fragment {
 
         validarUsuario(view);
         mostrarSaldo();
+        //guardarSaldo();
         return view;
     }
 
@@ -284,35 +286,26 @@ aux.setVisibility(aux.INVISIBLE);} else {aux.setVisibility(aux.VISIBLE);}*/
     }// fin de OnclickDelImageView
 
     public void guardarSaldo(){
-
-       // String nombreIngreso =
-        //MyAdapter.CreateFather(nombreIngreso);
+        VariablesGlobales vg = VariablesGlobales.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         // se supone que ya usted creo el objeto carro en su firebase
         smartbudget_db = database.getReference("Users");
         smartbudget_db = smartbudget_db.child("user"+user.getUid());
         smartbudget_db = smartbudget_db.child("Ingresos");
-        smartbudget_db =  smartbudget_db.child("Comida").child("Monto");
+        smartbudget_db =  smartbudget_db.child(vg.getMitexto()).child("Monto");
         smartbudget_db.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 long numChildren = dataSnapshot.getChildrenCount();
                 String monto = dataSnapshot.getValue(String.class);
 
-                /*List<String> listaIngreso = new ArrayList<>();
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    Ingreso  ingreso = postSnapshot.getValue(Ingreso.class);
-                    monto = ingreso.getValor();
-                    listaIngreso.add(monto);
-                }*/
-
-
                 if(monto!=null){
-                   // TextView Mi_textview = (TextView) getActivity().findViewById(R.id.saldo);
-                   // TextView Mi_textview2 = (TextView) getActivity().findViewById(R.id.efectivo);
-                    //Mi_textview.setText("₡"+monto_actual);
-                    //Mi_textview2.setText("₡"+monto_actual);
+                   /*TextView Mi_textview = (TextView) getActivity().findViewById(R.id.saldo);
+                   TextView Mi_textview2 = (TextView) getActivity().findViewById(R.id.efectivo);
+                    Mi_textview.setText("₡"+monto);
+                    Mi_textview2.setText("₡"+monto);*/
                     MensajeOK(monto);
                 }
             }
@@ -323,4 +316,5 @@ aux.setVisibility(aux.INVISIBLE);} else {aux.setVisibility(aux.VISIBLE);}*/
             }
         });
     }
+
 }

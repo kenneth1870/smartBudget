@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import com.example.kenneth.smartbudget.Modelo.VariablesGlobales;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +59,8 @@ public class IngresosFragment extends Fragment {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         MyAdapter.CreateFather(texto.getText().toString());
+                        VariablesGlobales vg = VariablesGlobales.getInstance();
+                        vg.setMitexto(texto.getText().toString());
                     }
                 });
 
