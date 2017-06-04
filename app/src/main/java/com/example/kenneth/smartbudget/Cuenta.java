@@ -10,18 +10,17 @@ public class Cuenta {
     String ingresos;
     String monto_actual;
     String nombre;
-    String tipo_moneda;
 
     public Cuenta() {
     }
 
-    public Cuenta(String ahorros, String gastos, String ingresos, String monto_actual, String nombre, String tipo_moneda) {
+    public Cuenta(String ahorros, String gastos, String ingresos, String monto_actual, String nombre) {
         this.ahorros = ahorros;
         this.gastos = gastos;
         this.ingresos = ingresos;
         this.monto_actual = monto_actual;
         this.nombre = nombre;
-        this.tipo_moneda = tipo_moneda;
+
     }
 
     public String getAhorros() {
@@ -64,11 +63,4 @@ public class Cuenta {
         this.nombre = nombre;
     }
 
-    public String getTipo_moneda() {
-        return tipo_moneda;
-    }
-
-    public void setTipo_moneda(String tipo_moneda) {
-        this.tipo_moneda = tipo_moneda;
-    }
 }

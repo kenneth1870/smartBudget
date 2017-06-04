@@ -1,0 +1,133 @@
+[33mcommit 06063f3b05b2a475ae8d132659f9eb78c9614e7c[m[33m ([m[1;36mHEAD -> [m[1;32mccc[m[33m)[m
+Author: ccifuentes9412 <ccifuentes9412@gmail.com>
+Date:   Thu Jun 1 23:17:10 2017 -0600
+
+    Cuenta mayuscula
+
+[33mcommit 4af96d15ac3909e951c0ad8067f6a11556cbac1a[m
+Author: ccifuentes9412 <ccifuentes9412@gmail.com>
+Date:   Thu Jun 1 23:03:52 2017 -0600
+
+    Ahorros, BD
+
+[33mcommit 2092a7a0f533ef9e88fb5e01f28864ac60e3f099[m[33m ([m[1;31morigin/development[m[33m, [m[1;32mdevelopment[m[33m)[m
+Author: antonio11gp <antonio11gp@gmail.com>
+Date:   Thu Jun 1 22:55:15 2017 -0600
+
+    general fragment pop up
+
+[33mcommit 5a22958cc1891084f1a4db15a5ae0b647d420873[m[33m ([m[1;31morigin/toni/dev[m[33m)[m
+Author: antonio11gp <antonio11gp@gmail.com>
+Date:   Wed May 31 18:58:16 2017 -0600
+
+    clases gasto e ingreso
+
+[33mcommit 2d7ffb4db6e8cef8f81d6e3297ec9449b5117be3[m
+Author: antonio11gp <antonio11gp@gmail.com>
+Date:   Wed May 31 00:11:50 2017 -0600
+
+    graficas
+
+[33mcommit 6904b4a11d8c524d326b46f6e267f2f44dd1a0de[m
+Author: Kenneth Rosales <kenneth@foundationlab.co>
+Date:   Mon May 29 22:42:55 2017 -0600
+
+    add database instance for users
+
+[33mcommit d51e8ab9e0acb9f97d4c1972a064998db0ec20d4[m
+Author: Kenneth Rosales <kenneth@foundationlab.co>
+Date:   Sun May 28 20:52:39 2017 -0600
+
+    wip
+
+[33mcommit b92d9f7ddb643337b9378abb4fea24a40e9986b5[m
+Author: antonio11gp <antonio11gp@gmail.com>
+Date:   Sat May 27 23:52:25 2017 -0600
+
+    fix conflicts
+
+[33mcommit 092c84b36adf83027116e5a58a4347952c6a8c36[m
+Author: Kenneth Rosales <kenneth@foundationlab.co>
+Date:   Fri May 26 23:15:24 2017 -0600
+
+    add delete account and update developers view
+
+[33mcommit 84c112d11c7a895d353d170f4a0dbfbff345aece[m
+Author: Kenneth Rosales <kenneth@foundationlab.co>
+Date:   Tue May 23 20:50:28 2017 -0600
+
+    add config configuration
+
+[33mcommit eaf6e3eb76709abd3941550d28b764ce2a560501[m
+Author: Kenneth Rosales <kenneth@foundationlab.co>
+Date:   Thu Apr 27 21:40:56 2017 -0600
+
+    add listview with items and view for it
+
+[33mcommit 46943a00186285468fe5dc4f367fc98d9d08e91b[m
+Author: ariel4080 <arielgarro80@gmail.com>
+Date:   Mon Apr 24 10:16:44 2017 -0600
+
+    Mapa funcional de gastos
+
+[33mcommit a14e6fad490d36e44e0b36be743ee7d6ad15cea7[m
+Author: Kenneth Rosales <kenneth@foundationlab.co>
+Date:   Sun Apr 23 12:48:12 2017 -0600
+
+    Add YouTube api, refactor developers' view
+
+[33mcommit c737ae65a639e849dc7a7c705ef779c115bedcd1[m
+Author: ariel4080 <arielgarro80@gmail.com>
+Date:   Thu Apr 20 13:06:37 2017 -0600
+
+    Activity Developers
+
+[33mcommit cd6b3c37055514c89ecb3a3a73a216c230819b99[m
+Author: ariel4080 <arielgarro80@gmail.com>
+Date:   Thu Apr 20 11:57:34 2017 -0600
+
+    Mapa de google
+    
+    Carga localizacion
+
+[33mcommit 5d5f5d7c7104d6e28979c0995fa0368907faecfb[m
+Author: Kenneth Rosales <kenneth@foundationlab.co>
+Date:   Thu Apr 20 10:16:10 2017 -0600
+
+    hotfix
+
+[33mcommit 76a7a4d8c883e7d80a2c916893a0861b4d3ae75c[m
+Author: Kenneth Rosales <kenneth@foundationlab.co>
+Date:   Thu Apr 20 01:15:18 2017 -0600
+
+    wip
+
+[33mcommit d4cda353455e1a5b2a0db39e2722f56e90b42e6f[m
+Author: Kenneth Rosales <kenneth@foundationlab.co>
+Date:   Mon Apr 17 23:01:34 2017 -0600
+
+    add splash screen and some fixes for UI
+
+[33mcommit cd78ba51505577873542111fe625ef74fdb976cb[m
+Author: Kenneth Rosales <kenneth@foundationlab.co>
+Date:   Mon Apr 17 09:56:38 2017 -0600
+
+    add fragments y diseno para login y sign in
+
+[33mcommit 769ff98a797c366f25c3d805d9ba4b9344aac9d6[m
+Author: Kenneth Rosales <kenneth@foundationlab.co>
+Date:   Thu Apr 6 10:30:16 2017 -0600
+
+    abilidad para loguearse con google, email/contrasenna y registrarse
+
+[33mcommit 3adc972f460363df37a37444b58a5f978fa2e857[m
+Author: Kenneth Rosales <kenneth@foundationlab.co>
+Date:   Sun Mar 19 20:04:21 2017 -0600
+
+    remove texview helloword
+
+[33mcommit 34c747e408ca4a38ee21773897da5fd5ca6f5a9c[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Kenneth Rosales <kenneth@foundationlab.co>
+Date:   Sun Mar 19 19:59:35 2017 -0600
+
+    commit inicial

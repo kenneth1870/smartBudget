@@ -1,11 +1,15 @@
 package com.example.kenneth.smartbudget;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -13,7 +17,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,13 +37,20 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.example.kenneth.smartbudget.R.drawable.ahorro;
 
-public class AhorrosFragment extends Fragment {
+
+public class AhorrosFragment extends Fragment implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener{
 
     private FirebaseAuth firebaseAuth;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference smartbudget_db;
 
+    private ProgressBar firstBar = null;
+    private ProgressBar secondBar = null;
+
+    private GestureDetector gestos ;
+    private View vTouch=null;
 
     @Nullable
     @Override
@@ -56,28 +71,45 @@ public class AhorrosFragment extends Fragment {
 
         Button MiButton;
         MiButton = (Button) view.findViewById(R.id.button2);
+        firstBar = (ProgressBar) getActivity().findViewById(R.id.firstBar);
+        secondBar = (ProgressBar)getActivity().findViewById(R.id.secondBar);
         //Programamos el evento onclick
         MiButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View arg0) {
                 SimpleDateFormat today = new SimpleDateFormat("dd/M/yyyy");
                 String date = today.format(new Date());
+<<<<<<< HEAD
                 //saveCuenta("ahorros","gastos","ingresos","0","Efectivo","Dolares");
                 saveAhorro(date, date ,"1" ,"99999", "Añonuevo","Semanal");
                 LeeObjetoEnFirebase("ahorro01");
+=======
+              //  saveCuenta("ahorros","gastos","ingresos","0","Efectivo");
+                //LeeObjetoEnFirebase("ahorro01");
+                //BorrarAhorro("ahorro06");
+>>>>>>> Final final ahorro
 
+                Intent intento = new Intent(getActivity().getApplicationContext(), IngresarAhorro.class);
+                startActivity(intento);
             }
         });
 
-
+        gestos = new GestureDetector(getActivity(), this);
+        ListView Mi_imageview = (ListView) view.findViewById(R.id.lista_ahorros);
+        Mi_imageview.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // La siguiente asingación  recoge cuál view  usamos.
+                vTouch = v;
+                return gestos.onTouchEvent(event);
+            }
+        });
     }
-
-
 
     private void saveCuenta(String ahorro, String gasto, String ingreso, String monto_actual, String nombre, String tipo_moneda) {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        Cuenta cuenta= new Cuenta(gasto,ahorro,ingreso,monto_actual,nombre,tipo_moneda);
+        Cuenta cuenta= new Cuenta(gasto,ahorro,ingreso,monto_actual,nombre);
 
         smartbudget_db = database.getReference("Users");
         smartbudget_db = smartbudget_db.child("user"+user.getUid());
@@ -92,26 +124,6 @@ public class AhorrosFragment extends Fragment {
 
         }
 
-    private void saveAhorro( String fechaFinal, String fechaInicial, String id, String monto, String nombre, String periodo) {
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        Ahorro ahorro = new Ahorro(fechaInicial,fechaFinal,id,monto,nombre,periodo);
-
-        smartbudget_db = database.getReference("Users");
-        smartbudget_db = smartbudget_db.child("user"+user.getUid());
-        smartbudget_db = smartbudget_db.child("lista_cuentas");
-
-        smartbudget_db.child("ahorros").child("ahorro04").setValue(ahorro);//Guarda el objeto ahorro en la lista de ahorros.
-
-        smartbudget_db.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) { }
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
-        });
-    }
-
 
     public void LeeObjetoEnFirebase(String nombreobj) {
         firebaseAuth = FirebaseAuth.getInstance();
@@ -125,8 +137,9 @@ public class AhorrosFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 long numChildren = dataSnapshot.getChildrenCount();
                 Ahorro carro = dataSnapshot.getValue(Ahorro.class);
-                MensajeOK(carro.getNombre()+" tiene un periodo: "+carro.getPeriodo());
+                MensajeOK(carro.getNombre()+" tiene un periodo: "+carro.getTipoMoneda());
                 MensajeOK( String.valueOf(numChildren));
+                //To do guardar data en view
             }
 
             @Override
@@ -135,35 +148,36 @@ public class AhorrosFragment extends Fragment {
             }
         });
     }
-    public List<ObjetosxDesplegar> misObjetos = new ArrayList<>();
+    public List<Ahorro> misObjetos = new ArrayList<>();
 
     private void LlenarListaObjetos() {
-
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        // se supone que ya usted creo el objeto carro en su firebase
         smartbudget_db = database.getReference("Users");
         smartbudget_db = smartbudget_db.child("user"+user.getUid());
         smartbudget_db = smartbudget_db.child("lista_cuentas");
-        smartbudget_db =  smartbudget_db.child("ahorros");
-
-        smartbudget_db.addValueEventListener(new ValueEventListener() {
+        smartbudget_db.child("ahorros").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                misObjetos.clear();
                 List<Ahorro> fcmAhorro = new ArrayList<>();
 
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    Ahorro  ahorro = postSnapshot.getValue(Ahorro.class);
-                    fcmAhorro.add(ahorro);
-                }
-
-                // Check your arraylist size and pass to list view like
-                if(fcmAhorro.size()>0){
-                    for(int i=0;i<fcmAhorro.size();i++){
-                        misObjetos.add(new ObjetosxDesplegar(fcmAhorro.get(i).getNombre(),fcmAhorro.get(i).getPeriodo(), fcmAhorro.get(i).getMonto(), R.drawable.ahorro));
+                    try{
+                        Ahorro  ahorro = postSnapshot.getValue(Ahorro.class);
+                        fcmAhorro.add(ahorro);
                     }
-                    ArrayAdapter<ObjetosxDesplegar> adapter = new MyListAdapter();
+                    catch (Exception e) { System.out.println("Instrucciones a ejecutar cuando se produce un error");  }
+
+                }
+                // Check your arraylist size and pass to list view like
+
+                if(fcmAhorro.size()>0){//Listo to view (to do what you need).
+                    for(int i=0;i<fcmAhorro.size();i++){
+                        if(!misObjetos.contains(fcmAhorro.get(i)))
+                            misObjetos.add(fcmAhorro.get(i));
+                    }
+                    ArrayAdapter<Ahorro> adapter = new MyListAdapter();
                     ListView list = (ListView) getActivity().findViewById(R.id.lista_ahorros);
                     list.setAdapter(adapter);
                 }else{
@@ -179,6 +193,27 @@ public class AhorrosFragment extends Fragment {
         });
 
     }
+
+    public void BorrarAhorro(String nombreobj) {
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        smartbudget_db = database.getReference("Users");
+        smartbudget_db = smartbudget_db.child("user"+user.getUid());
+        smartbudget_db = smartbudget_db.child("lista_cuentas");
+
+        smartbudget_db.child("ahorros").child(nombreobj).removeValue();
+
+        smartbudget_db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) { }
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
+    }
+
 
     public void MensajeOK(String msg){
         View v1 = getActivity().getWindow().getDecorView().getRootView();
@@ -196,7 +231,7 @@ public class AhorrosFragment extends Fragment {
 
 
     private void LlenarListView() {
-        ArrayAdapter<ObjetosxDesplegar> adapter = new MyListAdapter();
+        ArrayAdapter<Ahorro> adapter = new MyListAdapter();
         ListView list = (ListView) getActivity().findViewById(R.id.lista_ahorros);
         list.setAdapter(adapter);
     }
@@ -206,16 +241,71 @@ public class AhorrosFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked,
                                     int position, long id) {
-                ObjetosxDesplegar ObjEscogido = misObjetos.get(position);
-                String message = "Elegiste item No.  " + (1+position)
-                        + " que es un objeto cuyo primer atributo es  " + ObjEscogido.getAtributo01();
-                MensajeOK(message);
+                Ahorro ObjEscogido = misObjetos.get(position);
+                /*String message = "Elegiste item No.  " + (1+position)
+                        + " que es un objeto cuyo primer atributo es  " + ObjEscogido.getNombre();
+                MensajeOK(message);*/
+                VariablesGlobales vg = VariablesGlobales.getInstance();vg.setIdActual(ObjEscogido.getId());
+                ListView milistview = (ListView) getActivity().findViewById(R.id.lista_ahorros);
+                registerForContextMenu(milistview);
             }
         });
     }
 
+    @Override
+    public boolean onSingleTapConfirmed(MotionEvent e) {
+        return false;
+    }
 
-    private class MyListAdapter extends ArrayAdapter<ObjetosxDesplegar> {
+    @Override
+    public boolean onDoubleTap(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onDoubleTapEvent(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        return false;
+    }
+
+    public boolean onTouchEvent(MotionEvent event) {
+        gestos.onTouchEvent(event);
+        vTouch = null;
+        return getActivity().onTouchEvent(event);
+    }
+
+
+    private class MyListAdapter extends ArrayAdapter<Ahorro> {
         public MyListAdapter() {
             super(getActivity(), R.layout.desplegandoahorros, misObjetos);
         }
@@ -226,18 +316,59 @@ public class AhorrosFragment extends Fragment {
             if (itemView == null) {
                 itemView = getActivity().getLayoutInflater().inflate(R.layout.desplegandoahorros, parent, false);
             }
-            ObjetosxDesplegar ObjetoActual = misObjetos.get(position);
+            Ahorro ObjetoActual = misObjetos.get(position);
             // Fill the view
             ImageView imageView = (ImageView)itemView.findViewById(R.id.ivdibujo);
-            imageView.setImageResource(ObjetoActual.getNumDibujo());
+            imageView.setImageResource(ahorro);
             TextView elatributo01 = (TextView) itemView.findViewById(R.id.paraelatributo01);
-            elatributo01.setText(ObjetoActual.getAtributo01());
+            elatributo01.setText(ObjetoActual.getNombre());
             TextView elatributo02 = (TextView) itemView.findViewById(R.id.paraelatributo02);
-            elatributo02.setText("" + ObjetoActual.getAtributo02());
+            elatributo02.setText("" + ObjetoActual.getFechaFinal());
             TextView elatributo03 = (TextView) itemView.findViewById(R.id.paraelatributo03);
-            elatributo03.setText("" + ObjetoActual.getAtributo03());
+            elatributo03.setText("" + ObjetoActual.getMontoInicial());
+            TextView elatributo04 = (TextView) itemView.findViewById(R.id.paraelatributo04);
+            elatributo04.setText(ObjetoActual.getObjetivo());
+            TextView elatributo05 = (TextView) itemView.findViewById(R.id.paraelatributo05);
+            elatributo05.setText("" + ObjetoActual.getTipoMoneda());
             return itemView;
         }
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        if(v.getId()==R.id.lista_ahorros) {
+            menu.setHeaderTitle("Opciones");
+            menu.add(0, 1, 0, "Editar");
+            menu.add(0, 2, 0, "Eliminar");
+            menu.add(0, 3, 0, "Detalles");
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        int opcionseleccionada = item.getItemId();
+        switch (item.getItemId()) {
+            case 1: Intent intento = new Intent(getActivity().getApplicationContext(), EditarAhorro.class);
+                startActivity(intento);
+                break;
+            case 2:
+
+                    VariablesGlobales vg = VariablesGlobales.getInstance(); int i = vg.getIdActual();
+                    BorrarAhorro("ahorro0"+i);
+                    MensajeOK("Elemento eliminado correctamente");
+
+                break;
+            case 3: MensajeOK("Op. 3"); break;
+            case 4: MensajeOK("Op. 4"); break;
+            case 5: MensajeOK("Op. 5"); break;
+            case 6: MensajeOK("Op. 6"); break;
+            //case ?: Mensaje("Op. ?"); break;
+            default:  MensajeOK("No clasificado"); break;
+        }
+        return true;
+    }
+
 
 }

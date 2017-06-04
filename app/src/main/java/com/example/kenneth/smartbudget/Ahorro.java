@@ -10,82 +10,72 @@ import static android.R.attr.id;
 
 public class Ahorro {
 
-    String fechaFinal;
-    String fechaInicial;
-    String id;
-    String monto;
     String nombre;
-    String periodo;
+    String objetivo;
+    String fechaFinal;
+    String montoInicial;
+    String tipoMoneda;
+    int id;
 
-    public Ahorro(String fechaFinal, String fechaInicial, String id, String monto, String nombre, String periodo) {
-        this.fechaFinal = fechaFinal;
-        this.fechaInicial = fechaInicial;
-        this.id = id;
-        this.monto = monto;
-        this.nombre = nombre;
-        this.periodo = periodo;
-    }
 
     public Ahorro() {
     }
 
-    public String getFechaFinal() {
-        return fechaFinal;
-    }
-
-    public void setFechaFinal(String fechaFinal) {
-        this.fechaFinal = fechaFinal;
-    }
-
-    public String getFechaInicial() {
-        return fechaInicial;
-    }
-
-    public void setFechaInicial(String fechaInicial) {
-        this.fechaInicial = fechaInicial;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getMonto() {
-        return monto;
-    }
-
-    public void setMonto(String monto) {
-        this.monto = monto;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
+    public Ahorro(String nombre, String objetivo, String fechaFinal, String montoInicial, String tipoMoneda, int id) {
         this.nombre = nombre;
+        this.objetivo = objetivo;
+        this.fechaFinal = fechaFinal;
+        this.montoInicial = montoInicial;
+        this.tipoMoneda = tipoMoneda;
+        this.id=id;
     }
 
-    public String getPeriodo() {
-        return periodo;
-    }
+    public String getNombre() {return nombre; }
 
-    public void setPeriodo(String periodo) {
-        this.periodo = periodo;
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public String getObjetivo() { return objetivo; }
+
+    public void setObjetivo(String objetivo) { this.objetivo = objetivo; }
+
+    public String getFechaFinal() { return fechaFinal; }
+
+    public void setFechaFinal(String fechaFinal) { this.fechaFinal = fechaFinal; }
+
+    public String getMontoInicial() { return montoInicial;  }
+
+    public void setMontoInicial(String montoInicial) {this.montoInicial = montoInicial; }
+
+    public String getTipoMoneda() { return tipoMoneda; }
+
+    public void setTipoMoneda(String tipoMoneda) { this.tipoMoneda = tipoMoneda;  }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id;}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Ahorro ahorro = (Ahorro) o;
+
+        if (!nombre.equals(ahorro.nombre)) return false;
+        if (!objetivo.equals(ahorro.objetivo)) return false;
+        if (!fechaFinal.equals(ahorro.fechaFinal)) return false;
+        if (!montoInicial.equals(ahorro.montoInicial)) return false;
+        return tipoMoneda.equals(ahorro.tipoMoneda);
+
     }
 
     @Override
-    public String toString() {
-        return "Ahorro{" +
-                "fechaFinal='" + fechaFinal + '\'' +
-                ", fechaInicial='" + fechaInicial + '\'' +
-                ", id='" + id + '\'' +
-                ", monto='" + monto + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", periodo='" + periodo + '\'' +
-                '}';
+    public int hashCode() {
+        int result = nombre.hashCode();
+        result = 31 * result + objetivo.hashCode();
+        result = 31 * result + fechaFinal.hashCode();
+        result = 31 * result + montoInicial.hashCode();
+        result = 31 * result + tipoMoneda.hashCode();
+        return result;
     }
 }
