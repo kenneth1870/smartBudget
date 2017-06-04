@@ -1,19 +1,16 @@
 package com.example.kenneth.smartbudget;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.example.kenneth.smartbudget.Modelo.VariablesGlobales;
 
@@ -28,6 +25,7 @@ public class IngresosFragment extends Fragment {
     public static List<String> MyAcounts = new ArrayList<String>();
     public static int cont = -1;
     public static List<MyForm> MyForms = new ArrayList<>();
+    private TextView msg;
 
     @Nullable
     @Override
@@ -35,6 +33,16 @@ public class IngresosFragment extends Fragment {
         final View view =inflater.inflate(R.layout.fragment_ingresos, container, false);
         ExpandableListView exv =  (ExpandableListView) view.findViewById(R.id.exv);
         MyAdapter = new MiAdaptador(this.getContext());
+        msg = (TextView) view.findViewById(R.id.ayuda_txt) ;
+        if (MyAcounts.size() <= 0 ){
+            exv.setVisibility(View.INVISIBLE);
+            msg.setVisibility(View.VISIBLE);
+        }else {
+            exv.setVisibility(View.VISIBLE);
+            msg.setVisibility(View.INVISIBLE);
+
+        }
+
         exv.setAdapter(MyAdapter);
         return view;
     }

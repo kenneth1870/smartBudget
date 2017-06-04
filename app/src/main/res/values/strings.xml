@@ -108,5 +108,10 @@
     <string name="Saldo">Saldo</string>
     <string name="lista_equilibro">Tabla de equilibrio</string>
     <string name="title_activity_test">test</string>
+    <string-array name="categorias">
+        <item>Comida </item>
+        <item>Deporte</item>
+        <item>Salud</item>
+    </string-array>
 
 </resources>
