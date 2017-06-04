@@ -33,16 +33,6 @@ public class IngresosFragment extends Fragment {
         final View view =inflater.inflate(R.layout.fragment_ingresos, container, false);
         ExpandableListView exv =  (ExpandableListView) view.findViewById(R.id.exv);
         MyAdapter = new MiAdaptador(this.getContext());
-        msg = (TextView) view.findViewById(R.id.ayuda_txt) ;
-        if (MyAcounts.size() <= 0 ){
-            exv.setVisibility(View.INVISIBLE);
-            msg.setVisibility(View.VISIBLE);
-        }else {
-            exv.setVisibility(View.VISIBLE);
-            msg.setVisibility(View.INVISIBLE);
-
-        }
-
         exv.setAdapter(MyAdapter);
         return view;
     }

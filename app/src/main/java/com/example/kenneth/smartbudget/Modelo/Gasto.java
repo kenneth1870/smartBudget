@@ -5,37 +5,31 @@ package com.example.kenneth.smartbudget.Modelo;
  */
 
 public class Gasto {
-    String fecha_gasto;
-    int id;
+
+
+    String valor_gasto;
     String nombre_gasto;
+    String tipo_gasto;
     String ubicacion;
-    int valor_gasto;
+
+
 
     public Gasto() {
     }
 
-    public Gasto(String fecha_gasto, int id, String nombre_gasto, String ubicacion, int valor_gasto) {
-        this.fecha_gasto = fecha_gasto;
-        this.id = id;
-        this.nombre_gasto = nombre_gasto;
-        this.ubicacion = ubicacion;
+    public Gasto(String valor_gasto, String nombre_gasto, String tipo_gasto, String ubicacion) {
         this.valor_gasto = valor_gasto;
+        this.nombre_gasto = nombre_gasto;
+        this.tipo_gasto = tipo_gasto;
+        this.ubicacion = ubicacion;
     }
 
-    public String getFecha_gasto() {
-        return fecha_gasto;
+    public String getValor_gasto() {
+        return valor_gasto;
     }
 
-    public void setFecha_gasto(String fecha_gasto) {
-        this.fecha_gasto = fecha_gasto;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setValor_gasto(String valor_gasto) {
+        this.valor_gasto = valor_gasto;
     }
 
     public String getNombre_gasto() {
@@ -46,30 +40,19 @@ public class Gasto {
         this.nombre_gasto = nombre_gasto;
     }
 
+    public String getTipo_gasto() {
+        return tipo_gasto;
+    }
+
+    public void setTipo_gasto(String tipo_gasto) {
+        this.tipo_gasto = tipo_gasto;
+    }
+
     public String getUbicacion() {
         return ubicacion;
     }
 
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
-    }
-
-    public int getValor_gasto() {
-        return valor_gasto;
-    }
-
-    public void setValor_gasto(int valor_gasto) {
-        this.valor_gasto = valor_gasto;
-    }
-
-    @Override
-    public String toString() {
-        return "Gasto{" +
-                "fecha_gasto='" + fecha_gasto + '\'' +
-                ", id=" + id +
-                ", nombre_gasto='" + nombre_gasto + '\'' +
-                ", ubicacion='" + ubicacion + '\'' +
-                ", valor_gasto=" + valor_gasto +
-                '}';
     }
 }
