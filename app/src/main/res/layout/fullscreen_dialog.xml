@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin">
+
+
+        <EditText
+            android:id="@+id/nombre_gasto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Gasto" />
+
+        <TextView
+            android:id="@+id/categoria_gasto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/nombre_gasto"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:text="Categoria de gasto"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/nombre_gasto"
+            android:layout_marginTop="34dp"
+            android:entries="@array/categorias" />
+
+        <TextView
+            android:id="@+id/ubicacion_gasto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/spinner2"
+            android:layout_marginTop="44dp"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:text="Ubicación"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+        <EditText
+            android:id="@+id/monto_gasto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/ubicacion_gasto"
+            android:layout_marginTop="51dp"
+            android:hint="5000"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+    </RelativeLayout>
+</ScrollView>

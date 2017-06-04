@@ -29,9 +29,7 @@ import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import static android.R.attr.fragment;
 import static com.example.kenneth.smartbudget.IngresosFragment.DemeTexto;
-import static com.example.kenneth.smartbudget.R.id.map;
 
 public class DashBoardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
@@ -43,6 +41,7 @@ public class DashBoardActivity extends AppCompatActivity
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
     public static boolean BtnFloatFragment = false;
+    public static boolean BtnFloatFragmentGastos = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +54,20 @@ public class DashBoardActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(BtnFloatFragment){
+                if (BtnFloatFragment) {
                     DemeTexto(findViewById(R.id.fab));
-                }
-                else {
+                } else if (BtnFloatFragmentGastos) {
+
+                    Fragment fragment = null;
+                    fragment = new FullScreenDialog();
+                    if (fragment != null) {
+                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.contenedor_principal, fragment);
+                        ft.commit();
+                    }
+
+
+                } else {
                     Fragment fragment = null;
                     fragment = new GastosFragment();
                     if (fragment != null) {
@@ -66,6 +75,7 @@ public class DashBoardActivity extends AppCompatActivity
                         ft.replace(R.id.contenedor_principal, fragment);
                         ft.commit();
                     }
+
                 }
 
             }
@@ -175,8 +185,9 @@ public class DashBoardActivity extends AppCompatActivity
                 fragment = new AhorrosFragment();
                 break;
             case R.id.gastos:
-                fragment = new BaseGastosfragment();
-
+                BtnFloatFragmentGastos = true;
+                //fragment = new BaseGastosfragment();
+                fragment = new GastosFragment();
                 break;
             case R.id.mas:
                 BtnFloatFragment = false;
