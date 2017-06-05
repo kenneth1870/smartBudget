@@ -28,8 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.id.list;
-
 
 public class GastosFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
@@ -85,7 +83,7 @@ public class GastosFragment extends Fragment {
 // Uso: DialogoSiNo(findViewById(R.id.btnNombreBoton))
         AlertDialog.Builder builder1 = new
                 AlertDialog.Builder(view.getContext());
-        builder1.setMessage("Estas seguro de hacer esto.");
+        builder1.setMessage("Estas seguroe que deseas eliminar tu gasto?");
         builder1.setCancelable(true);
         builder1.setPositiveButton("Si",
                 new DialogInterface.OnClickListener() {
@@ -153,9 +151,15 @@ public class GastosFragment extends Fragment {
                         if(!misObjetos.contains(fcmGasto.get(i)))
                             misObjetos.add(fcmGasto.get(i));
                     }
-                    ArrayAdapter<Gasto> adapter = new MyListAdapter();
-                    ListView list = (ListView) getActivity().findViewById(R.id.list_gastos);
-                    list.setAdapter(adapter);
+
+                    try {
+                        ArrayAdapter<Gasto> adapter = new MyListAdapter();
+                        ListView list = (ListView) getActivity().findViewById(R.id.list_gastos);
+                        list.setAdapter(adapter);
+                    }
+                    catch (Exception e) { System.out.println("Instrucciones a ejecutar cuando se produce un error");  }
+
+
                 }else{
                     // Display dialog for there is no user available.
                 }
@@ -167,6 +171,7 @@ public class GastosFragment extends Fragment {
             }
         });
     }
+
 
     private class MyListAdapter extends ArrayAdapter<Gasto> {
 

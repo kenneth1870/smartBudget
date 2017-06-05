@@ -20,7 +20,7 @@
         android:id="@+id/cardView">
 
         <TextView
-            android:id="@+id/nombre_gasto_lbl"
+            android:id="@+id/tipo_gasto_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -30,7 +30,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:id="@+id/total_gasto_lbl"
+            android:id="@+id/nombre_gasto_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -40,7 +40,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tipo_gasto_lbl"
+            android:id="@+id/total_gasto_lbl"
             android:layout_width="126dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
