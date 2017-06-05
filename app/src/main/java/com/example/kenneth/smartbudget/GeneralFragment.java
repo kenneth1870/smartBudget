@@ -94,14 +94,11 @@ public class GeneralFragment extends Fragment {
         builder1.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-<<<<<<< HEAD
+
                         Spend = texto.getText().toString();
                         EditarSaldo(Spend);
                         guardarSaldo();
-=======
-                        Spend = DirecUser + ": " + texto.getText().toString() + " colones";
-                        MensajeOK(Spend);
->>>>>>> Final final ahorro
+
 
                     }
                 });
@@ -180,20 +177,6 @@ public class GeneralFragment extends Fragment {
 
             }
         });
-    }
-
-    public void MensajeOK(String msg) {
-        View v1 = getActivity().getWindow().getDecorView().getRootView();
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(v1.getContext());
-        builder1.setMessage(msg);
-        builder1.setCancelable(true);
-        builder1.setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
-                });
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
     }
 
     public void mostrarGraficaRedonda(final View view) {

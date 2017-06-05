@@ -79,15 +79,10 @@ public class AhorrosFragment extends Fragment implements GestureDetector.OnGestu
             public void onClick(View arg0) {
                 SimpleDateFormat today = new SimpleDateFormat("dd/M/yyyy");
                 String date = today.format(new Date());
-<<<<<<< HEAD
-                //saveCuenta("ahorros","gastos","ingresos","0","Efectivo","Dolares");
-                saveAhorro(date, date ,"1" ,"99999", "Añonuevo","Semanal");
-                LeeObjetoEnFirebase("ahorro01");
-=======
+
               //  saveCuenta("ahorros","gastos","ingresos","0","Efectivo");
                 //LeeObjetoEnFirebase("ahorro01");
                 //BorrarAhorro("ahorro06");
->>>>>>> Final final ahorro
 
                 Intent intento = new Intent(getActivity().getApplicationContext(), IngresarAhorro.class);
                 startActivity(intento);

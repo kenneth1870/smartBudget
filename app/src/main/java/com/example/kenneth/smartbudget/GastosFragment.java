@@ -25,6 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static android.R.id.list;
 
 
 public class GastosFragment extends Fragment {
@@ -48,61 +51,14 @@ public class GastosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_gastos, container, false);
-
-        listView = (ListView) v.findViewById(R.id.list_gastos);
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-
-        smartbudget_db = database.getReference("Users");
-        smartbudget_db = smartbudget_db.child("user" + user.getUid());
-        smartbudget_db = smartbudget_db.child("Gastos");
-
-        smartbudget_db = database.getReference("Users");
-        smartbudget_db = smartbudget_db.child("user" + user.getUid());
-        smartbudget_db = smartbudget_db.child("Gastos");
-
-        smartbudget_db.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Gasto gasto =  postSnapshot.getValue(Gasto.class);
-                    listaGastos.add(gasto);
-                }
-                Toast.makeText(getActivity(), "tamano" + listaGastos.size(),Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-        listaGastos.add(new Gasto("1", "1", "1", "1"));
-
-
-
-        populateListView();
-
-        if(listaGastos.size() > 1){
-            img_gastos.setVisibility(View.INVISIBLE);
-            info_gastos.setVisibility(View.INVISIBLE);
-
-        }
-       registerClickCallback();
-
         return v;
     }
-
-
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         img_gastos = (ImageView) getActivity().findViewById(R.id.info_gastos);
         info_gastos = (TextView) getActivity().findViewById(R.id.gastos_lbl);
-
         getActivity().setTitle("Gastos");
 
     }
@@ -111,12 +67,10 @@ public class GastosFragment extends Fragment {
 
     private void populateListView() {
         ArrayAdapter<Gasto> adapter = new MyListAdapter();
-
         listView.setAdapter(adapter);
     }
 
     private class MyListAdapter extends ArrayAdapter<Gasto> {
-
 
         public MyListAdapter() {
             super(getActivity(), R.layout.content_list_gastos, listaGastos);
@@ -129,7 +83,6 @@ public class GastosFragment extends Fragment {
             View itemView = convertView;
             if (itemView == null) {
                 itemView = getActivity().getLayoutInflater().inflate(R.layout.content_list_gastos, parent, false);
-
             }
 
             Gasto currentGasto = listaGastos.get(position);
@@ -142,7 +95,6 @@ public class GastosFragment extends Fragment {
             tipo_gasto.setText(currentGasto.getTipo_gasto());
             monto_gasto.setText("-₡" + currentGasto.getValor_gasto());
             lugar_gasto.setText(currentGasto.getUbicacion());
-
 
             return itemView;
         }
@@ -158,7 +110,6 @@ public class GastosFragment extends Fragment {
                 Gasto clickedCar = listaGastos.get(position);
                 eliminarGasto(viewClicked, clickedCar.getNombre_gasto().toString());
 
-
             }
         });
     }
@@ -173,7 +124,7 @@ public class GastosFragment extends Fragment {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        BorrarIngreso(gasto_id);
+                        BorrarGasto(gasto_id);
                         Toast.makeText(getActivity(), "Se elimino tu gasto",Toast.LENGTH_SHORT).show();
                     }
         });
@@ -187,7 +138,7 @@ public class GastosFragment extends Fragment {
         alert11.show();
     }
 
-    private void BorrarIngreso(String gasto) {
+    private void BorrarGasto(String gasto) {
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -203,8 +154,59 @@ public class GastosFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) { }
         });
+    }
+
+    public List<Ahorro> misObjetos = new ArrayList<>();
+
+    private void LlenarListaObjetos() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        smartbudget_db = database.getReference("Users");
+        smartbudget_db = smartbudget_db.child("user"+user.getUid());
+        smartbudget_db = smartbudget_db.child("lista_cuentas");
+        smartbudget_db.child("ahorros").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                misObjetos.clear();
+                List<Ahorro> fcmAhorro = new ArrayList<>();
+
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    try{
+                        Ahorro  ahorro = postSnapshot.getValue(Ahorro.class);
+                        fcmAhorro.add(ahorro);
+                    }
+                    catch (Exception e) { System.out.println("Instrucciones a ejecutar cuando se produce un error");  }
+
+                }
+                // Check your arraylist size and pass to list view like
+
+                if(fcmAhorro.size()>0){//Listo to view (to do what you need).
+                    for(int i=0;i<fcmAhorro.size();i++){
+                        if(!misObjetos.contains(fcmAhorro.get(i)))
+                            misObjetos.add(fcmAhorro.get(i));
+                    }
+                  //  ArrayAdapter<Ahorro> adapter = new MyListAdapter();
+
+                    //
+                   // ListView list = (ListView) getActivity().findViewById(R.id.lista_ahorros);
+                    //list.setAdapter(adapter);
+                }else{
+                    // Display dialog for there is no user available.
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // for handling database error
+            }
+        });
 
     }
+
+
+
+
 
 
 }

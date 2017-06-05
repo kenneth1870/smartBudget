@@ -181,12 +181,10 @@ public class DashBoardActivity extends AppCompatActivity
                 fragment = new IngresosFragment();
                 break;
             case R.id.ahorros:
-<<<<<<< HEAD
+
                 BtnFloatFragment = false;
-                fragment = new AhorrosFragment();
-=======
                 fragment = new BaseAhorrosFragment();
->>>>>>> Final final ahorro
+
                 break;
             case R.id.gastos:
                 BtnFloatFragmentGastos = true;
