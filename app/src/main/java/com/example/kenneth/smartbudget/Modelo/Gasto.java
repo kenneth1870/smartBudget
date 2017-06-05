@@ -55,4 +55,30 @@ public class Gasto {
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Gasto gasto = (Gasto) o;
+
+        if (valor_gasto != null ? !valor_gasto.equals(gasto.valor_gasto) : gasto.valor_gasto != null)
+            return false;
+        if (nombre_gasto != null ? !nombre_gasto.equals(gasto.nombre_gasto) : gasto.nombre_gasto != null)
+            return false;
+        if (tipo_gasto != null ? !tipo_gasto.equals(gasto.tipo_gasto) : gasto.tipo_gasto != null)
+            return false;
+        return ubicacion != null ? ubicacion.equals(gasto.ubicacion) : gasto.ubicacion == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = valor_gasto != null ? valor_gasto.hashCode() : 0;
+        result = 31 * result + (nombre_gasto != null ? nombre_gasto.hashCode() : 0);
+        result = 31 * result + (tipo_gasto != null ? tipo_gasto.hashCode() : 0);
+        result = 31 * result + (ubicacion != null ? ubicacion.hashCode() : 0);
+        return result;
+    }
 }

@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +46,6 @@ public class GastosFragment extends Fragment {
     public GastosFragment() {
 
     }
-    public  static ArrayList<Gasto> listaGastos = new ArrayList<Gasto>();
 
     @Nullable
     @Override
@@ -61,43 +61,10 @@ public class GastosFragment extends Fragment {
         info_gastos = (TextView) getActivity().findViewById(R.id.gastos_lbl);
         getActivity().setTitle("Gastos");
 
-    }
+        LlenarListaObjetos();
+        //LlenarListView();
+        registerClickCallback();
 
-
-
-    private void populateListView() {
-        ArrayAdapter<Gasto> adapter = new MyListAdapter();
-        listView.setAdapter(adapter);
-    }
-
-    private class MyListAdapter extends ArrayAdapter<Gasto> {
-
-        public MyListAdapter() {
-            super(getActivity(), R.layout.content_list_gastos, listaGastos);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup
-                parent) {
-
-            View itemView = convertView;
-            if (itemView == null) {
-                itemView = getActivity().getLayoutInflater().inflate(R.layout.content_list_gastos, parent, false);
-            }
-
-            Gasto currentGasto = listaGastos.get(position);
-
-            TextView nombregasto = (TextView) itemView.findViewById(R.id.nombre_gasto_lbl);
-            TextView tipo_gasto = (TextView) itemView.findViewById(R.id.tipo_gasto_lbl);
-            TextView monto_gasto = (TextView) itemView.findViewById(R.id.total_gasto_lbl);
-            TextView lugar_gasto = (TextView) itemView.findViewById(R.id.lugar_gasto_lbl);
-            nombregasto.setText(currentGasto.getNombre_gasto());
-            tipo_gasto.setText(currentGasto.getTipo_gasto());
-            monto_gasto.setText("-₡" + currentGasto.getValor_gasto());
-            lugar_gasto.setText(currentGasto.getUbicacion());
-
-            return itemView;
-        }
     }
 
 
@@ -107,7 +74,7 @@ public class GastosFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked,
                                     int position, long id) {
-                Gasto clickedCar = listaGastos.get(position);
+                Gasto clickedCar = misObjetos.get(position);
                 eliminarGasto(viewClicked, clickedCar.getNombre_gasto().toString());
 
             }
@@ -154,46 +121,44 @@ public class GastosFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) { }
         });
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
     }
 
-    public List<Ahorro> misObjetos = new ArrayList<>();
+    public List<Gasto> misObjetos = new ArrayList<>();
 
     private void LlenarListaObjetos() {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         smartbudget_db = database.getReference("Users");
         smartbudget_db = smartbudget_db.child("user"+user.getUid());
-        smartbudget_db = smartbudget_db.child("lista_cuentas");
-        smartbudget_db.child("ahorros").addValueEventListener(new ValueEventListener() {
+        smartbudget_db.child("Gastos").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 misObjetos.clear();
-                List<Ahorro> fcmAhorro = new ArrayList<>();
+                List<Gasto> fcmGasto = new ArrayList<>();
 
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     try{
-                        Ahorro  ahorro = postSnapshot.getValue(Ahorro.class);
-                        fcmAhorro.add(ahorro);
+                        Gasto  gasto = postSnapshot.getValue(Gasto.class);
+                        fcmGasto.add(gasto);
                     }
                     catch (Exception e) { System.out.println("Instrucciones a ejecutar cuando se produce un error");  }
-
                 }
                 // Check your arraylist size and pass to list view like
 
-                if(fcmAhorro.size()>0){//Listo to view (to do what you need).
-                    for(int i=0;i<fcmAhorro.size();i++){
-                        if(!misObjetos.contains(fcmAhorro.get(i)))
-                            misObjetos.add(fcmAhorro.get(i));
+                if(fcmGasto.size()>0){//Listo to view (to do what you need).
+                    for(int i=0;i<fcmGasto.size();i++){
+                        if(!misObjetos.contains(fcmGasto.get(i)))
+                            misObjetos.add(fcmGasto.get(i));
                     }
-                  //  ArrayAdapter<Ahorro> adapter = new MyListAdapter();
-
-                    //
-                   // ListView list = (ListView) getActivity().findViewById(R.id.lista_ahorros);
-                    //list.setAdapter(adapter);
+                    ArrayAdapter<Gasto> adapter = new MyListAdapter();
+                    ListView list = (ListView) getActivity().findViewById(R.id.list_gastos);
+                    list.setAdapter(adapter);
                 }else{
                     // Display dialog for there is no user available.
                 }
-
             }
 
             @Override
@@ -201,12 +166,34 @@ public class GastosFragment extends Fragment {
                 // for handling database error
             }
         });
-
     }
 
+    private class MyListAdapter extends ArrayAdapter<Gasto> {
 
+        public MyListAdapter() {
+            super(getActivity(), R.layout.content_list_gastos, misObjetos);
+        }
 
+        @Override
+        public View getView(int position, View convertView, ViewGroup
+                parent) {
 
+            View itemView = convertView;
+            if (itemView == null) {itemView = getActivity().getLayoutInflater().inflate(R.layout.content_list_gastos, parent, false); }
 
+            Gasto currentGasto = misObjetos.get(position);
+
+            TextView nombregasto = (TextView) itemView.findViewById(R.id.nombre_gasto_lbl);
+            TextView tipo_gasto = (TextView) itemView.findViewById(R.id.tipo_gasto_lbl);
+            TextView monto_gasto = (TextView) itemView.findViewById(R.id.total_gasto_lbl);
+            TextView lugar_gasto = (TextView) itemView.findViewById(R.id.lugar_gasto_lbl);
+            nombregasto.setText(currentGasto.getNombre_gasto());
+            tipo_gasto.setText(currentGasto.getTipo_gasto());
+            monto_gasto.setText("-₡" + currentGasto.getValor_gasto());
+            lugar_gasto.setText(currentGasto.getUbicacion());
+
+            return itemView;
+        }
+    }
 
 }
